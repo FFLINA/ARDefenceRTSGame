@@ -28,6 +28,7 @@ public class UIBuilding : MonoBehaviour
         archerTowerFactory = Resources.Load<GameObject>("ArcherTower_Lvl1");
         GameObject archerTower = Instantiate(archerTowerFactory);
         archerTower.transform.position = transform.position;
+        Destroy(gameObject);
     }
     
     public void OnClickCancel()

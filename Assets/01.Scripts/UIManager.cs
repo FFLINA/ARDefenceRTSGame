@@ -11,12 +11,16 @@ public class UIManager : MonoBehaviour
     public GameObject upgradeUIFactory;
     GameObject buildUI, upgradeUI;
 
+    GameObject gameFieldFactory;
+    GameObject gameField;
+
     GameObject crystalFactory;
     GameObject crystal;
     // Start is called before the first frame update
     void Start()
     {
         crystalFactory = Resources.Load<GameObject>("MainCrystal");
+        gameFieldFactory = Resources.Load<GameObject>("GameField");
     }
 
     // Update is called once per frame
@@ -31,32 +35,36 @@ public class UIManager : MonoBehaviour
             Vector3 dir = Camera.main.ScreenToWorldPoint(mos);
             // 월드의 좌표를 클릭했을 때 화면에 자신이 보고있는 화면에 맞춰 좌표를 바꿔준다.
 
+            // 레이를 쏴서
             RaycastHit hit;
             if (Physics.Raycast(Camera.main.transform.position, dir, out hit, mos.z))
             {
-                if (hit.transform.CompareTag("GameField"))
+                // 닿은 곳의 태그가 땅이면
+                if (hit.transform.CompareTag("Floor"))
                 {
-                    // 크리스탈이 없으면
-                    if (crystal == null)
+                    if(gameField == null)
                     {
-                        // 크리스탈을 생성하고
+                        // 게임필드를 만들고
+                        print("게임필드 설치 ");
+                        gameField = Instantiate(gameFieldFactory);
+                        gameField.transform.position = hit.point;
                         print("크리스탈 설치 ");
                         crystal = Instantiate(crystalFactory);
                         crystal.transform.position = hit.point;
+                        // 크리스탈 포지션 저장
+                        BuildManager.Instance.CrystalPosition = crystal.transform.position;
                     }
-                    // 크리스탈이 있으면
-                    else
+                }
+                // 닿은 곳의 태그가 게임필드면
+                else if (hit.transform.CompareTag("GameField"))
+                {
+                    // 근데 크리스탈이 있을때만
+                    if (crystal != null)
                     {
-                        // 건설UI를 보여준다
-                        if (buildUI == null)
+                        if (buildUI == null && upgradeUI == null)
                         {
-                            if (upgradeUI != null)
-                            {
-                                Destroy(upgradeUI);
-                            }
                             buildUI = Instantiate(buildUIFactory);
                             buildUI.transform.position = hit.point;
-                            buildUI.SetActive(true);
                         }
                     }
                 }
@@ -66,21 +74,29 @@ public class UIManager : MonoBehaviour
                     {
                         // 해당 건물의 UI를 보여준다
                         print("Clicked Building");
-                        if (upgradeUI == null)
+                        if (upgradeUI == null && buildUI == null)
                         {
-                            if (buildUI != null)
-                            {
-                                Destroy(buildUI);
-                            }
                             upgradeUI = Instantiate(upgradeUIFactory);
                             upgradeUI.transform.parent = hit.transform;
-                            upgradeUI.SetActive(true);
                             // 임시
                             upgradeUI.transform.position = hit.transform.GetChild(0).transform.position;
                         }
                     }
                 }
+                else if (hit.transform.CompareTag("Crystal"))
+                {
+                    print("크리스탈 클릭됨");
+                }
             }
         }
     }
 }
+
+/* 카메라 화면에서 화면 터치 시 그 부분에 레이를 쏘는 코드
+ * Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hitInfo;
+        if (Physics.Raycast(ray, out hitInfo))
+        {
+
+        }
+*/

@@ -18,6 +18,7 @@ public class Build : MonoBehaviour
 
     protected GameObject nextUpgradeF;
 
+
     public virtual void Sell()
     {
         // 자신의 sellGold만큼 골드를 추가하고 자신 파괴
@@ -47,8 +48,13 @@ public class Build : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    public virtual void Start()
     {
+        // 건물 생성시 크리스탈 반대방향을 바라보게 한다
+        Vector3 dir = BuildManager.Instance.CrystalPosition - transform.position;
+        dir.Normalize();
+        transform.forward = dir;
+        
     }
 
     // Update is called once per frame

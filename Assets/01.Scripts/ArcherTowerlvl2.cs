@@ -24,8 +24,9 @@ public class ArcherTowerlvl2 : Build
     public int AttackRange
     { get { return t_range; } set { t_range = value; } }
 
-    void Start()
+    public override void Start()
     {
+        base.Start();
         hp = 300;
         buildCost = 100;
         sellGold = 20;

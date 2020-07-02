@@ -24,11 +24,13 @@ public class UIUpgrading : MonoBehaviour
     public void OnClickUpgrade()
     {
         target.GetComponent<Build>().Upgrade();
+        Destroy(gameObject);
     }
 
     public void OnClickSell()
     {
         target.GetComponent<Build>().Sell();
+        Destroy(gameObject);
     }
 
     public void OnClickCancel()

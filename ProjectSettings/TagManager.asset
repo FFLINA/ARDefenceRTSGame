@@ -8,6 +8,7 @@ TagManager:
   - Building
   - Enemy
   - GameField
+  - Crystal
   layers:
   - Default
   - TransparentFX
