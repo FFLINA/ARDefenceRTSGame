@@ -11,8 +11,8 @@ public class UIManager : MonoBehaviour
     public GameObject upgradeUIFactory;
     GameObject buildUI, upgradeUI;
 
-    GameObject gameFieldFactory;
-    GameObject gameField;
+    GameObject gameFieldsFactory;
+    GameObject gameFields;
 
     GameObject crystalFactory;
     GameObject crystal;
@@ -20,7 +20,7 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         crystalFactory = Resources.Load<GameObject>("MainCrystal");
-        gameFieldFactory = Resources.Load<GameObject>("GameField");
+        gameFieldsFactory = Resources.Load<GameObject>("GameFields");
     }
 
     // Update is called once per frame
@@ -42,50 +42,61 @@ public class UIManager : MonoBehaviour
                 // 닿은 곳의 태그가 땅이면
                 if (hit.transform.CompareTag("Floor"))
                 {
-                    if(gameField == null)
+                    if (gameFields == null)
                     {
                         // 게임필드를 만들고
-                        print("게임필드 설치 ");
-                        gameField = Instantiate(gameFieldFactory);
-                        gameField.transform.position = hit.point;
-                        print("크리스탈 설치 ");
+                        gameFields = Instantiate(gameFieldsFactory);
+                        gameFields.transform.position = hit.point;
+                        Vector3 offset = new Vector3(0, hit.transform.localScale.y / 2, 0);
                         crystal = Instantiate(crystalFactory);
-                        crystal.transform.position = hit.point;
+                        crystal.transform.position = hit.point + offset;
                         // 크리스탈 포지션 저장
                         BuildManager.Instance.CrystalPosition = crystal.transform.position;
+                        // 에너미매니저한테 게임필드 생성됐다고 알림
+                        EnemyManager.Instance.SetGameField(gameFields);
+                        EnemyManager.Instance.SetCrystal(crystal);
                     }
                 }
                 // 닿은 곳의 태그가 게임필드면
                 else if (hit.transform.CompareTag("GameField"))
                 {
-                    // 근데 크리스탈이 있을때만
-                    if (crystal != null)
+                    // UI 중복 방지
+                    if (buildUI == null && upgradeUI == null)
                     {
-                        if (buildUI == null && upgradeUI == null)
+                        // 해당 필드에 건물이 없을 때만
+                        if (hit.transform.GetComponent<GameField>().isBuildable == true)
                         {
                             buildUI = Instantiate(buildUIFactory);
-                            buildUI.transform.position = hit.point;
+                            // 게임필드 클릭 , 클릭된 게임필드 위치에 ui 표시, 클릭된 게임필드 위치에 건설,
+                            Vector3 offset = new Vector3(0, hit.transform.localScale.y / 2, 0);
+                            buildUI.transform.position = hit.transform.position + offset;
+                            buildUI.GetComponent<UIBuilding>().SetClickedField(hit.transform.gameObject);
+                            /* 해당 게임필드의 정보를 건물이 가지고 있다가
+                            * 건물이 파괴,판매 되면 가지고있던 게임필드의 isBuildable을 true로
+                            */
                         }
                     }
+
                 }
                 else if (hit.transform.CompareTag("Building"))
                 {
-                    if (crystal != null)
+                    // 해당 건물의 UI를 보여준다
+                    print("Clicked Building");
+                    if (upgradeUI == null && buildUI == null)
                     {
-                        // 해당 건물의 UI를 보여준다
-                        print("Clicked Building");
-                        if (upgradeUI == null && buildUI == null)
-                        {
-                            upgradeUI = Instantiate(upgradeUIFactory);
-                            upgradeUI.transform.parent = hit.transform;
-                            // 임시
-                            upgradeUI.transform.position = hit.transform.GetChild(0).transform.position;
-                        }
+                        upgradeUI = Instantiate(upgradeUIFactory);
+                        // UI를 타워의 자식으로
+                        upgradeUI.transform.parent = hit.transform.parent; // hit은 모델링이라
+
+                        // 임시
+                        upgradeUI.transform.position = upgradeUI.transform.parent.Find("UIPoint").transform.position;
+                        
                     }
+
                 }
                 else if (hit.transform.CompareTag("Crystal"))
                 {
-                    print("크리스탈 클릭됨");
+                    // TODO : 크리스탈의 상세정보를 표시
                 }
             }
         }

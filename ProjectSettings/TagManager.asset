@@ -9,6 +9,8 @@ TagManager:
   - Enemy
   - GameField
   - Crystal
+  - EnemyField
+  - Bullet
   layers:
   - Default
   - TransparentFX

@@ -71,10 +71,14 @@
     <Compile Include="Assets\01.Scripts\BuildManager.cs" />
     <Compile Include="Assets\01.Scripts\CamearaMove.cs" />
     <Compile Include="Assets\01.Scripts\Enemy.cs" />
+    <Compile Include="Assets\01.Scripts\EnemyManager.cs" />
+    <Compile Include="Assets\01.Scripts\GameField.cs" />
     <Compile Include="Assets\01.Scripts\GoldManager.cs" />
     <Compile Include="Assets\01.Scripts\UIBuilding.cs" />
     <Compile Include="Assets\01.Scripts\UIManager.cs" />
     <Compile Include="Assets\01.Scripts\UIUpgrading.cs" />
+    <Compile Include="Assets\AttackRange.cs" />
+    <Compile Include="Assets\Bullet.cs" />
     <None Include="Assets\03.Materials\UI-Default.shader" />
     <Reference Include="UnityEngine">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.3.14f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>

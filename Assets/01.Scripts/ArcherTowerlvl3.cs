@@ -7,8 +7,8 @@ public class ArcherTowerlvl3 : Build
     // 아처타워 레벨3 스크립트
 
 
-    // 예정: 건설 시간동안 딜레이 추가
-    // 예정: 건설 비용 만큼 골드 감소
+    // TODO: 건설 시간동안 딜레이 추가
+    // TODO: 건설 비용 만큼 골드 감소
     // 탐색, 공격
     enum State
     {
@@ -70,9 +70,9 @@ public class ArcherTowerlvl3 : Build
         base.Sell();
     }
 
-    public override void Destroyed(GameObject obj)
+    public override void BuildDestroy(GameObject obj)
     {
-        base.Destroyed(obj);
+        base.BuildDestroy(obj);
     }
 
 
