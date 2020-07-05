@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2368760899727751566}
+  - component: {fileID: 504827483851859323}
   m_Layer: 0
   m_Name: ArcherTower_Lvl3
   m_TagString: Building
@@ -25,13 +26,26 @@ Transform:
   m_GameObject: {fileID: 1654201375499539374}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5971726802484859467}
   - {fileID: 5506938022370449000}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &504827483851859323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1654201375499539374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcac78bd5636ecf4aa89339fa1cea9e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetEnemies: []
 --- !u!1 &5857485314992548682
 GameObject:
   m_ObjectHideFlags: 0
@@ -42,7 +56,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5506938022370449000}
   m_Layer: 0
-  m_Name: UIPoint
+  m_Name: Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -56,7 +70,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5857485314992548682}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 8.09, z: 0}
+  m_LocalPosition: {x: 0, y: 3.91, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2368760899727751566}
@@ -74,7 +88,7 @@ GameObject:
   - component: {fileID: 5960929875369233957}
   - component: {fileID: 5953133230493175491}
   - component: {fileID: 4936463879302347768}
-  - component: {fileID: 7362716075902629280}
+  - component: {fileID: 4068016610512243370}
   m_Layer: 0
   m_Name: Model
   m_TagString: Building
@@ -91,7 +105,7 @@ Transform:
   m_GameObject: {fileID: 5966149852037450459}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 2368760899727751566}
   m_RootOrder: 0
@@ -157,15 +171,19 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: bc4bf5978b0527b488b736a0812f1a0d, type: 3}
---- !u!114 &7362716075902629280
-MonoBehaviour:
+--- !u!54 &4068016610512243370
+Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5966149852037450459}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bcac78bd5636ecf4aa89339fa1cea9e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0

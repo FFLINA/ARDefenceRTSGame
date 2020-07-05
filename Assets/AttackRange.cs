@@ -24,7 +24,7 @@ public class AttackRange : MonoBehaviour
         // 사정거리에 적이 들어오면 그 건물의 타겟리스트에 추가
         if(other.gameObject.CompareTag("Enemy"))
         {
-            transform.parent.GetComponent<Build>().AddTarget(other.transform.parent.gameObject);
+            transform.parent.GetComponent<Tower>().AddTarget(other.transform.parent.gameObject);
 
             other.transform.parent.gameObject.GetComponent<Enemy>().SetAttacker(transform.parent.gameObject);
         }
@@ -35,7 +35,7 @@ public class AttackRange : MonoBehaviour
         // 사정거리 밖으로 나가면 타겟리스트에서 삭제
         if (other.gameObject.CompareTag("Enemy"))
         {
-            transform.parent.GetComponent<Build>().RemoveTarget(other.transform.parent.gameObject);
+            transform.parent.GetComponent<Tower>().RemoveTarget(other.transform.parent.gameObject);
         }
     }
 }

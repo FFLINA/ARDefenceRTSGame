@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class CamearaMove : MonoBehaviour
 {
-    public float moveSpeed = 5f;
-    public float rotSpeed = 200f;
+    public float moveSpeed = 20f;
+    public float rotSpeed = 400f;
     float rX, rY;
     // Start is called before the first frame update
     void Start()
@@ -27,11 +27,7 @@ public class CamearaMove : MonoBehaviour
         float mouseY = Input.GetAxis("Mouse Y");
 
         rX += mouseY * Time.deltaTime * rotSpeed;
-        rX = Mathf.Clamp(rX, -30f, 30f);
-
-
-        rX += mouseY * Time.deltaTime * rotSpeed;
-        rX = Mathf.Clamp(rX, -30f, 30f);
+        rX = Mathf.Clamp(rX, -60f, 60f);
         rY += mouseX * Time.deltaTime * rotSpeed;
 
         transform.rotation = Quaternion.Euler(-rX, rY, 0);
@@ -41,8 +37,17 @@ public class CamearaMove : MonoBehaviour
     {
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
+        float u = 0;
+        if (Input.GetKey(KeyCode.Q))
+        {
+            u = -1;
+        }
+        else if (Input.GetKey(KeyCode.E))
+        {
+            u = 1;
+        }
 
-        Vector3 dir = new Vector3(h, 0, v);
+        Vector3 dir = new Vector3(h, u, v);
         dir.Normalize();
         dir = Camera.main.transform.TransformDirection(dir);
 

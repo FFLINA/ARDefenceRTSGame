@@ -73,12 +73,18 @@
     <Compile Include="Assets\01.Scripts\Enemy.cs" />
     <Compile Include="Assets\01.Scripts\EnemyManager.cs" />
     <Compile Include="Assets\01.Scripts\GameField.cs" />
+    <Compile Include="Assets\01.Scripts\GameManager.cs" />
     <Compile Include="Assets\01.Scripts\GoldManager.cs" />
+    <Compile Include="Assets\01.Scripts\Tower.cs" />
     <Compile Include="Assets\01.Scripts\UIBuilding.cs" />
     <Compile Include="Assets\01.Scripts\UIManager.cs" />
     <Compile Include="Assets\01.Scripts\UIUpgrading.cs" />
     <Compile Include="Assets\AttackRange.cs" />
     <Compile Include="Assets\Bullet.cs" />
+    <Compile Include="Assets\EnemyAttackRange.cs" />
+    <Compile Include="Assets\Enemy_Boss.cs" />
+    <Compile Include="Assets\Enemy_Elite.cs" />
+    <Compile Include="Assets\Enemy_Normal.cs" />
     <None Include="Assets\03.Materials\UI-Default.shader" />
     <Reference Include="UnityEngine">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.3.14f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>

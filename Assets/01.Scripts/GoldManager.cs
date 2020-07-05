@@ -32,7 +32,7 @@ public class GoldManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        curGold = 10000;
+        curGold = 1000;
         txtGold.text = curGold.ToString();
     }
 
