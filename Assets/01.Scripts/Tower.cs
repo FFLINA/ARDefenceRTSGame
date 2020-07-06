@@ -32,6 +32,7 @@ public class Tower : Build
         SEARCH, ATTACK
     }
     protected State state;
+    protected AudioSource audioSource;
 
     protected float attackSpeed, range;
 
@@ -137,6 +138,8 @@ public class Tower : Build
             if (targetEnemies.Count != 0)
             {
                 bullet.GetComponent<Bullet>().SetTarget(targetEnemies[0].transform.Find("Model").gameObject);
+                audioSource.Stop();
+                audioSource.Play();
             }
 
             tempTime = 0;

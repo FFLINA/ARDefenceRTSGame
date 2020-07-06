@@ -71,6 +71,7 @@ public class Enemy : MonoBehaviour
     protected GameObject attackRangeShpereFactory;
     protected GameObject attackRangeShpere;
 
+    protected GameObject DeathVFX;
     // Start is called before the first frame update
     protected virtual void Start()
     {
@@ -78,6 +79,7 @@ public class Enemy : MonoBehaviour
 
         nearTarget = null;
         currentTarget = crystalTarget;
+        DeathVFX = Resources.Load<GameObject>("VFX_EnemyDeath");
     }
 
     // Update is called once per frame
@@ -158,6 +160,7 @@ public class Enemy : MonoBehaviour
         if (currentTarget.CompareTag("Crystal"))
         {
             // 크리스탈 공격
+            Crystal.Instance.HP -= AttackPower;
             print("Crystal Attack.");
         }
         else if (currentTarget.CompareTag("Building"))
@@ -197,6 +200,9 @@ public class Enemy : MonoBehaviour
         attackers.Clear();
         // 에너미 파괴됨
         Destroy(gameObject);
+        GameObject vfx = Instantiate(DeathVFX);
+        vfx.transform.position = transform.position;
+        vfx.SetActive(true);
     }
 
     internal void SetAttacker(GameObject tower)

@@ -9,6 +9,7 @@ public class UIBuilding : MonoBehaviour
 
 
     GameObject archerTowerFactory;
+    GameObject canonTowerFactory;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,7 +19,8 @@ public class UIBuilding : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        float dist = Vector3.Distance(transform.position, Camera.main.transform.position);
+        transform.localScale = transform.localScale.normalized * (dist / 4);
     }
     public void OnClickArcherTower()
     {
@@ -41,6 +43,23 @@ public class UIBuilding : MonoBehaviour
         }
     }
 
+    public void OnClickCanonTower()
+    {
+        if (clickedField.GetComponent<GameField>().isBuildable == true)
+        {
+            canonTowerFactory = Resources.Load<GameObject>("CanonTower_Lvl1");
+            GameObject canonTower = Instantiate(canonTowerFactory);
+            canonTower.transform.position = transform.position;
+            canonTower.GetComponent<Build>().SetBuildedField(clickedField);
+            // 건설된 필드의 isBuilded 를 false로
+            clickedField.GetComponent<GameField>().isBuildable = false;
+            Destroy(gameObject);
+        }
+        else
+        {
+            print("이미 건물이 건설되어 있습니다");
+        }
+    }
     public void OnClickCancel()
     {
         Destroy(gameObject);

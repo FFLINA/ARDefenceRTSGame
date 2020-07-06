@@ -6,7 +6,6 @@ using UnityEngine;
 public class ArcherTowerlvl1 : Tower
 {
     // TODO: 건설 시간동안 딜레이 추가
-
     public override float AttackSpeed
     { get { return attackSpeed; } set { attackSpeed = value; } }
     public override float AttackRange
@@ -23,6 +22,8 @@ public class ArcherTowerlvl1 : Tower
     public override void Start()
     {
         base.Start();
+        audioSource = GetComponent<AudioSource>();
+
         // 이 타워의 타겟리스트 생성
         targetEnemies = new List<GameObject>();
 
@@ -46,7 +47,7 @@ public class ArcherTowerlvl1 : Tower
             new Vector3(AttackRange * 2, AttackRange * 2, AttackRange * 2);
         attackRangeShpere.transform.position = transform.position;
 
-        bulletFactory = Resources.Load<GameObject>("Bullet");
+        bulletFactory = Resources.Load<GameObject>("Arrow");
     }
 
     // Update is called once per frame

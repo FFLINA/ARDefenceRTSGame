@@ -23,6 +23,7 @@ public class ArcherTowerlvl3 : Tower
         base.Start();
         // 이 타워의 타겟리스트 생성
         targetEnemies = new List<GameObject>();
+        audioSource = GetComponent<AudioSource>();
 
         hp = 500;
         buildCost = 300;
@@ -44,7 +45,7 @@ public class ArcherTowerlvl3 : Tower
             new Vector3(AttackRange * 2, AttackRange * 2, AttackRange * 2);
         attackRangeShpere.transform.position = transform.position;
 
-        bulletFactory = Resources.Load<GameObject>("Bullet");
+        bulletFactory = Resources.Load<GameObject>("Arrow");
     }
 
     // Update is called once per frame

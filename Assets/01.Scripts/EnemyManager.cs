@@ -42,6 +42,7 @@ public class EnemyManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Cursor.lockState = CursorLockMode.Confined;
         currentStage = 0;
 
         respawnNormal = 0.5f;
@@ -51,6 +52,29 @@ public class EnemyManager : MonoBehaviour
         enemyNormalFactory = Resources.Load<GameObject>("Enemy_Normal");
         enemyEliteFactory = Resources.Load<GameObject>("Enemy_Elite");
         enemyBossFactory = Resources.Load<GameObject>("Enemy_Boss");
+    }
+
+    int bossDeathCount = 0;
+    internal void BossDestroySignal()
+    {
+        bossDeathCount++;
+        if(bossDeathCount == bossMaxCount)
+        {
+            print(" bossDeathCount : " + bossDeathCount);
+            StageClear();
+        }
+    }
+
+    public void StageClear()
+    {
+        GameManager.Instance.FinishStage();
+        normalCount = 0;
+        eliteCount = 0;
+        bossCount = 0;
+        tempNormal = 0;
+        tempElite = 0;
+        tempBoss = 0;
+        bossDeathCount = 0;
     }
 
     // 일반 적 0.5초마다 생산
@@ -74,7 +98,6 @@ public class EnemyManager : MonoBehaviour
                 {
                     // 노말 적 생산
                     CreateEnemy(enemyNormalFactory);
-                    print("normalCount : " + normalCount);
                     normalCount++;
                     GameManager.Instance.TotalCount--;
                     tempNormal = 0;
@@ -87,7 +110,6 @@ public class EnemyManager : MonoBehaviour
                 {
                     // 엘리트 적 생산
                     CreateEnemy(enemyEliteFactory);
-                    print("eliteCount : " + eliteCount);
                     eliteCount++;
                     GameManager.Instance.TotalCount--;
                     tempElite = 0;
@@ -100,24 +122,26 @@ public class EnemyManager : MonoBehaviour
                 {
                     // boss 적 생산
                     CreateEnemy(enemyBossFactory);
-                    print("bossCount : " + bossCount);
                     bossCount++;
                     GameManager.Instance.TotalCount--;
                     tempBoss = 0;
                 }
             }
-            if (GameManager.Instance.TotalCount <= 0)
-            {
-                // 임시 - 
-                // TODO : 마지막몹이 죽을 때 스테이지 클리어로 해야함
-                GameManager.Instance.FinishStage();
-                normalCount = 0;
-                eliteCount = 0;
-                bossCount = 0;
-                tempNormal = 0;
-                tempElite = 0;
-                tempBoss = 0;
-            }
+            //if (GameManager.Instance.TotalCount <= 0)
+            //{
+            //    // 임시 - 
+            //    // TODO : 마지막몹이 죽을 때 스테이지 클리어로 해야함
+            //    // 보스몬스터들은 죽을때 에너미매니저한테 죽었다고 신호를 보내고
+            //    // 에너미매니저는 보스몬스터의 카운터 만큼 신호를 받으면 게임이 끝났다고 판정
+
+            //    GameManager.Instance.FinishStage();
+            //    normalCount = 0;
+            //    eliteCount = 0;
+            //    bossCount = 0;
+            //    tempNormal = 0;
+            //    tempElite = 0;
+            //    tempBoss = 0;
+            //}
         }
     }
 

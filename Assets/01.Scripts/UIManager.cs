@@ -67,6 +67,8 @@ public class UIManager : MonoBehaviour
                 // 게임필드 클릭 , 클릭된 게임필드 위치에 ui 표시, 클릭된 게임필드 위치에 건설,
                 Vector3 offset = new Vector3(0, hit.transform.localScale.y / 2, 0);
                 buildUI.transform.position = hit.transform.position + offset;
+
+
                 buildUI.GetComponent<UIBuilding>().SetClickedField(hit.transform.gameObject);
                 /* 해당 게임필드의 정보를 건물이 가지고 있다가
                 * 건물이 파괴,판매 되면 가지고있던 게임필드의 isBuildable을 true로

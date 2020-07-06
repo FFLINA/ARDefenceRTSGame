@@ -20,7 +20,9 @@ public class GameManager : MonoBehaviour
     }
 
     public Text stageText;
+    string stageMent = "STAGE : ";
     public Text totalCountText;
+    string countMent = "REMAIN : ";
     int stage;
 
     public bool hasCrystal { get; set; }
@@ -32,11 +34,12 @@ public class GameManager : MonoBehaviour
         set
         {
             totalCount = value;
-            totalCountText.text = totalCount.ToString();
+            totalCountText.text = countMent + totalCount.ToString();
         }
     }
 
     public Button gameStartButton;
+    public GameObject gameOverUI;
 
     GameObject gameFieldsFactory;
     GameObject gameFields;
@@ -52,12 +55,13 @@ public class GameManager : MonoBehaviour
         GameStart = false;
 
         stage = 0;
-        stageText.text = stage.ToString("00");
+        stageText.text = stageMent + stage.ToString("00");
 
         crystalFactory = Resources.Load<GameObject>("MainCrystal");
         gameFieldsFactory = Resources.Load<GameObject>("GameFields");
 
         gameStartButton.gameObject.SetActive(false);
+        gameOverUI.SetActive(false);
     }
 
     // Update is called once per frame
@@ -113,8 +117,9 @@ public class GameManager : MonoBehaviour
         gameStartButton.gameObject.SetActive(false);
         //gameStartButton.enabled = false;
         stage++;
-        stageText.text = stage.ToString("00");
+        stageText.text = stageMent + stage.ToString("00");
         EnemyManager.Instance.SetNextStage(stage);
+        Crystal.Instance.clearEffectF.SetActive(false);
     }
 
     public void FinishStage()
@@ -122,5 +127,15 @@ public class GameManager : MonoBehaviour
         GameStart = false;
         //gameStartButton.enabled = true;
         gameStartButton.gameObject.SetActive(true);
+        Crystal.Instance.clearEffectF.SetActive(true);
+    }
+
+    public void GameOver()
+    {
+        crystal = null;
+        hasCrystal = false;
+        GameStart = false;
+        gameOverUI.SetActive(true);
+
     }
 }

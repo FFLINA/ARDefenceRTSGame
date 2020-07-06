@@ -15,6 +15,7 @@ public class GoldManager : MonoBehaviour
     }
 
     public Text txtGold;
+    string goldMent = "$ ";
     int curGold;
     public int Gold
     {
@@ -25,7 +26,7 @@ public class GoldManager : MonoBehaviour
         set
         {
             curGold = value;
-            txtGold.text = curGold.ToString();
+            txtGold.text = goldMent + curGold.ToString();
         }
     }
 
@@ -33,7 +34,7 @@ public class GoldManager : MonoBehaviour
     void Start()
     {
         curGold = 1000;
-        txtGold.text = curGold.ToString();
+        txtGold.text = goldMent + curGold.ToString();
     }
 
     // Update is called once per frame

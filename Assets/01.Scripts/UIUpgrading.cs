@@ -18,7 +18,8 @@ public class UIUpgrading : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        float dist = Vector3.Distance(transform.position, Camera.main.transform.position);
+        transform.localScale = transform.localScale.normalized * (dist / 4);
     }
 
     public void OnClickUpgrade()
