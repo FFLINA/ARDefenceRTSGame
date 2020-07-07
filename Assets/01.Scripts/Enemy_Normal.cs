@@ -10,13 +10,14 @@ public class Enemy_Normal : Enemy
         base.Start();
         attackers = new List<GameObject>();
 
-        HP = 100f;
-        attackPower = 5f;
-        attackSpeed = 1f;
+        HP = 200f;
+        attackPower = 10f;
+        attackSpeed = 2.5f;
+
         range = 2f;
         moveSpeed = 5.0f;
 
-        dropGold = 20;
+        dropGold = 10;
 
         // 반지름이 AttackRange인 구체
         attackRangeShpereFactory = Resources.Load<GameObject>("EnemyAttackRange");
@@ -53,5 +54,10 @@ public class Enemy_Normal : Enemy
     protected override void EnemyDestroy()
     {
         base.EnemyDestroy();
+    }
+
+    public override void OnAttackEventCall()
+    {
+        base.OnAttackEventCall();
     }
 }

@@ -9,15 +9,16 @@ public class Enemy_Elite : Enemy
     {
         base.Start();
         attackers = new List<GameObject>();
+        //DeathVFX = Resources.Load<GameObject>("SFX_WoodDeath");
 
-        HP = 300f;
-        attackPower = 15f;
-        attackSpeed = 1.5f;
-        tempTime = attackSpeed / 2;
-        range = 4f;
-        moveSpeed = 5.0f;
+        HP = 1000f;
+        attackPower = 30f;
+        attackSpeed = 3.5f;
 
-        dropGold = 100;
+        range = 3f;
+        moveSpeed = 1.5f;
+
+        dropGold = 50;
 
         // 반지름이 AttackRange인 구체
         attackRangeShpereFactory = Resources.Load<GameObject>("EnemyAttackRange");

@@ -35,7 +35,8 @@ public class CanonTowerlvl4 : Tower
         GoldManager.Instance.Gold -= Cost;
 
         state = State.SEARCH;
-        nextUpgradeF = Resources.Load<GameObject>("CanonTower_Lvl4");
+        nextUpgradeF = null;
+        //nextUpgradeF = Resources.Load<GameObject>("CanonTower_Lvl4");
 
         // 반지름이 AttackRange인 구체
         attackRangeShpereFactory = Resources.Load<GameObject>("AttackRange");
@@ -45,7 +46,8 @@ public class CanonTowerlvl4 : Tower
             new Vector3(AttackRange * 2, AttackRange * 2, AttackRange * 2);
         attackRangeShpere.transform.position = transform.position;
 
-        bulletFactory = Resources.Load<GameObject>("CanonBall_Lvl1");
+        //bulletFactory = Resources.Load<GameObject>("CanonBall_Lvl4");
+        bulletFactory = Resources.Load<GameObject>("CanonBall_Lvl2");
     }
 
     // Update is called once per frame

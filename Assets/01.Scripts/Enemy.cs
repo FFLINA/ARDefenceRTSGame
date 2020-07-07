@@ -14,13 +14,26 @@ public class Enemy : MonoBehaviour
     // 이동, 탐색, 공격, 파괴, 
 
     // TODO : 상태머신 인터페이스로 구현 
-    protected enum State
+    public enum State
     {
         IDLE, MOVE, ATTACK
     }
 
+    public virtual void OnAttackEventCall()
+    {
+        print("Enemy Attack Event Call");
+        AttackTarget(currentTarget);
+    }
 
-    protected State state;
+    internal void OnAttackEndEventCall()
+    {
+        print("Enemy Attack End Event Call");
+
+        anim.SetTrigger("Idle");
+    }
+
+    public State state;
+    //protected State state;
 
     protected List<GameObject> attackers;
 
@@ -72,6 +85,7 @@ public class Enemy : MonoBehaviour
     protected GameObject attackRangeShpere;
 
     protected GameObject DeathVFX;
+    public Animator anim;
     // Start is called before the first frame update
     protected virtual void Start()
     {
@@ -109,6 +123,7 @@ public class Enemy : MonoBehaviour
         if (currentTarget != null)
         {
             state = State.MOVE;
+            anim.SetTrigger("Move");
         }
         // 모든 타겟이 null이면 게임 끝, 정지
 
@@ -123,13 +138,18 @@ public class Enemy : MonoBehaviour
             dir.Normalize();
 
             transform.position += dir * moveSpeed * Time.deltaTime;
+            transform.forward = dir;
 
             // 사정거리 안에 건물(or유닛) 이 들어오면 그 타겟을 공격
             if (nearTarget != null)
             {
                 print("Target Change");
                 currentTarget = nearTarget;
+                dir = currentTarget.transform.position - transform.position;
+                dir.Normalize();
+                transform.forward = dir;
                 state = State.ATTACK;
+                anim.SetTrigger("Attack");  //닿자마자 첫타 한대 때림
             }
         }
     }
@@ -145,12 +165,16 @@ public class Enemy : MonoBehaviour
                 currentTarget = crystalTarget;
             }   // 크리스탈이 없으면 게임 끝
             state = State.IDLE;
+            anim.SetTrigger("Idle");
         }
 
         // 해당 타겟을 공격
+        // 공격할 수 있는 시간이 되면
         if (AttackSpeed <= tempTime)
         {
-            AttackTarget(currentTarget);
+            // 공격 애니메이션 시작
+            //AttackTarget(currentTarget);
+            anim.SetTrigger("Attack");
             tempTime = 0;
         }
     }
@@ -203,6 +227,7 @@ public class Enemy : MonoBehaviour
         GameObject vfx = Instantiate(DeathVFX);
         vfx.transform.position = transform.position;
         vfx.SetActive(true);
+        anim.SetTrigger("Die");
     }
 
     internal void SetAttacker(GameObject tower)

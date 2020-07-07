@@ -35,7 +35,8 @@ public class ArcherTowerlvl3 : Tower
         GoldManager.Instance.Gold -= Cost;
 
         state = State.SEARCH;
-        nextUpgradeF = Resources.Load<GameObject>("ArcherTower_Lvl3");
+        nextUpgradeF = null;
+        //nextUpgradeF = Resources.Load<GameObject>("ArcherTower_Lvl3");
 
         // 반지름이 AttackRange인 구체
         attackRangeShpereFactory = Resources.Load<GameObject>("AttackRange");

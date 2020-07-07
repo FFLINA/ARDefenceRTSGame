@@ -45,7 +45,8 @@ public class CanonTowerlvl3 : Tower
             new Vector3(AttackRange * 2, AttackRange * 2, AttackRange * 2);
         attackRangeShpere.transform.position = transform.position;
 
-        bulletFactory = Resources.Load<GameObject>("CanonBall_Lvl1");
+        //bulletFactory = Resources.Load<GameObject>("CanonBall_Lvl3");
+        bulletFactory = Resources.Load<GameObject>("CanonBall_Lvl2");
     }
 
     // Update is called once per frame

@@ -19,7 +19,7 @@ public class Crystal : MonoBehaviour
         set 
         { 
             hp = value;
-            print("크리스탈의 HP : " + HP);
+            //print("크리스탈의 HP : " + HP);
             if(hp <= 0)
             {
                 print("크리스탈 파괴");

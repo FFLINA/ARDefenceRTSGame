@@ -42,7 +42,6 @@ public class EnemyManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Confined;
         currentStage = 0;
 
         respawnNormal = 0.5f;
@@ -89,12 +88,16 @@ public class EnemyManager : MonoBehaviour
 
     void Update()
     {
+        // TODO : 일반몹은 무한정 생산하고
+        // 스테이지당 일정 수의 일반몹이 나오면 엘리트몹 생산
+        //              ""                   보스몹 생산
         if (GameManager.Instance.GameStart == true)
         {
             tempNormal += Time.deltaTime;
             if (tempNormal >= respawnNormal)
             {
-                if (normalCount < normalMaxCount)
+                //if (normalCount < normalMaxCount)
+                if (normalEnemyInfinity == true)
                 {
                     // 노말 적 생산
                     CreateEnemy(enemyNormalFactory);
@@ -125,23 +128,17 @@ public class EnemyManager : MonoBehaviour
                     bossCount++;
                     GameManager.Instance.TotalCount--;
                     tempBoss = 0;
+                    if(bossMaxCount == bossCount) // 마지막 보스
+                    {
+                        normalEnemyInfinity = false;
+                    }
                 }
             }
-            //if (GameManager.Instance.TotalCount <= 0)
-            //{
-            //    // 임시 - 
-            //    // TODO : 마지막몹이 죽을 때 스테이지 클리어로 해야함
-            //    // 보스몬스터들은 죽을때 에너미매니저한테 죽었다고 신호를 보내고
-            //    // 에너미매니저는 보스몬스터의 카운터 만큼 신호를 받으면 게임이 끝났다고 판정
+            // 임시 - 
+            // TODO : 마지막몹이 죽을 때 스테이지 클리어로 해야함
+            // 보스몬스터들은 죽을때 에너미매니저한테 죽었다고 신호를 보내고
+            // 에너미매니저는 보스몬스터의 카운터 만큼 신호를 받으면 게임이 끝났다고 판정
 
-            //    GameManager.Instance.FinishStage();
-            //    normalCount = 0;
-            //    eliteCount = 0;
-            //    bossCount = 0;
-            //    tempNormal = 0;
-            //    tempElite = 0;
-            //    tempBoss = 0;
-            //}
         }
     }
 
@@ -172,6 +169,8 @@ public class EnemyManager : MonoBehaviour
     }
 
     GameObject mainTargetCrystal;
+    private bool normalEnemyInfinity;
+
     internal void SetCrystal(GameObject crystal)
     {
         mainTargetCrystal = crystal;
@@ -189,6 +188,8 @@ public class EnemyManager : MonoBehaviour
         eliteMaxCount = Mathf.CeilToInt((currentStage * 100) * 0.10f);
         bossMaxCount = Mathf.CeilToInt((currentStage * 100) * 0.01f);
         totalCount = normalMaxCount + eliteMaxCount + bossMaxCount;
-        GameManager.Instance.TotalCount = totalCount;
+        // 임시 - 토탈 샐 필요없음
+        //GameManager.Instance.TotalCount = totalCount;
+        normalEnemyInfinity = true;
     }
 }

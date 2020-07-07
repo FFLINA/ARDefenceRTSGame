@@ -9,12 +9,12 @@ public class Enemy_Boss : Enemy
     {
         base.Start();
         attackers = new List<GameObject>();
+        //DeathVFX = Resources.Load<GameObject>("SFX_GolemDeath");
 
-        HP = 1000f;
+        HP = 2000f;
         attackPower = 80f;
-        
-        attackSpeed = 5f;
-        tempTime = attackSpeed / 2;
+        attackSpeed = 4f;
+
         range = 4f;
         moveSpeed = 3.0f;
 

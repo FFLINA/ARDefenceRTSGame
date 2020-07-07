@@ -8,7 +8,7 @@ public class Arrow : Bullet
     protected override void Start()
     {
         base.Start();
-        moveSpeed = 20f;
+        MoveSpeed = 30f;
     }
 
     Vector3 arrowRotateOffset = new Vector3(0, 90f, 0);
@@ -24,7 +24,7 @@ public class Arrow : Bullet
         {
             Vector3 dir = target.transform.position - transform.position;
             transform.rotation = Quaternion.LookRotation(dir + arrowRotateOffset);
-            transform.position += dir * moveSpeed * Time.deltaTime;
+            transform.position += dir * MoveSpeed * Time.deltaTime;
         }
     }
     protected override void OnTriggerEnter(Collider other)

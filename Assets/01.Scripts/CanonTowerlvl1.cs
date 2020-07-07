@@ -28,8 +28,8 @@ public class CanonTowerlvl1 : Tower
         hp = 100f;
         buildCost = 50;
         sellGold = buildCost / 2;
-        attackSpeed = 1f;
-        range = 10f;
+        attackSpeed = 5f;
+        range = 15f;
 
         // 생성 될 때 자신의 비용만큼 골드 차감
         GoldManager.Instance.Gold -= Cost;
