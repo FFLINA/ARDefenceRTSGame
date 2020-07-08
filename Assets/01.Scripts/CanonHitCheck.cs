@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static SoundManager;
 
 public class CanonHitCheck : MonoBehaviour
 {
@@ -12,7 +13,6 @@ public class CanonHitCheck : MonoBehaviour
     void Start()
     {
         explosionF = Resources.Load<GameObject>("VFX_Canon_Explosion");
-
     }
     float explosionRadius = 10f;
     // Update is called once per frame
@@ -22,15 +22,22 @@ public class CanonHitCheck : MonoBehaviour
 
     GameObject explosionF;
     Enemy enemy;
+
+    bool isTriggered = false;
     private void OnTriggerEnter(Collider other)
     {
+        if (isTriggered == true)
+            return;
+
         // 부딪힌 위치에 explosion표시, 범위안에 있는 오브젝트 destroy
         GameObject explosion = Instantiate(explosionF);
         explosion.transform.position = transform.position;
         Destroy(explosion, 4.0f);
+        EffectClipsEnum effectClips = EffectClipsEnum.CanonExplosion;
+        SoundManager.Instance.PlayEffect(effectClips, 0.5f);
 
         Collider[] hitEnemies =
-        Physics.OverlapSphere(explosion.transform.position, explosionRadius);
+        Physics.OverlapSphere(transform.position, explosionRadius);
         // 상대들 파괴
         for (int i = 0; i < hitEnemies.Length; i++)
         {
@@ -48,5 +55,6 @@ public class CanonHitCheck : MonoBehaviour
 
         // 나 파괴
         Destroy(gameObject);
+        isTriggered = true;
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static SoundManager;
 
 public class EnemyManager : MonoBehaviour
 {
@@ -15,12 +16,9 @@ public class EnemyManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        hasGameField = false;
     }
 
     int currentStage;
-    // 게임필드가 생성됐을 때
-    bool hasGameField;
     // 에너미 필드 배열을 받아옴
     List<GameObject> enemyFields = new List<GameObject>();
 
@@ -32,8 +30,9 @@ public class EnemyManager : MonoBehaviour
     GameObject enemyBossFactory;
     int normalCount, eliteCount, bossCount;
     int normalMaxCount, eliteMaxCount, bossMaxCount;
-    int totalCount;
 
+    int totalCount = 1;
+    public int TotalCount { get { return totalCount; } set { totalCount = value; } }
     // 생성시간
     float respawnNormal;
     float respawnElite;
@@ -44,7 +43,7 @@ public class EnemyManager : MonoBehaviour
     {
         currentStage = 0;
 
-        respawnNormal = 0.5f;
+        respawnNormal = 1f;
         respawnElite = respawnNormal * 5;
         respawnBoss = respawnElite * 5;
 
@@ -59,10 +58,14 @@ public class EnemyManager : MonoBehaviour
         bossDeathCount++;
         if(bossDeathCount == bossMaxCount)
         {
-            print(" bossDeathCount : " + bossDeathCount);
+            // 임시 - 마지막보스가 죽으면 스테이지 클리어
+            // 버그 - 2마리 죽여야하는데 1마리 죽여도 2마리죽은것처럼 보스데스카운트가 올라감
             StageClear();
+            clearEffectClip = EffectClipsEnum.StageClear;
+            SoundManager.Instance.PlayEffect(clearEffectClip, 0.7f);
         }
     }
+    EffectClipsEnum clearEffectClip;
 
     public void StageClear()
     {
@@ -74,6 +77,8 @@ public class EnemyManager : MonoBehaviour
         tempElite = 0;
         tempBoss = 0;
         bossDeathCount = 0;
+
+        TotalCount = 1;
     }
 
     // 일반 적 0.5초마다 생산
@@ -102,7 +107,7 @@ public class EnemyManager : MonoBehaviour
                     // 노말 적 생산
                     CreateEnemy(enemyNormalFactory);
                     normalCount++;
-                    GameManager.Instance.TotalCount--;
+                    //TotalCount++;
                     tempNormal = 0;
                 }
             }
@@ -114,7 +119,7 @@ public class EnemyManager : MonoBehaviour
                     // 엘리트 적 생산
                     CreateEnemy(enemyEliteFactory);
                     eliteCount++;
-                    GameManager.Instance.TotalCount--;
+                    //TotalCount++;
                     tempElite = 0;
                 }
             }
@@ -126,7 +131,7 @@ public class EnemyManager : MonoBehaviour
                     // boss 적 생산
                     CreateEnemy(enemyBossFactory);
                     bossCount++;
-                    GameManager.Instance.TotalCount--;
+                    //TotalCount++;
                     tempBoss = 0;
                     if(bossMaxCount == bossCount) // 마지막 보스
                     {
@@ -134,7 +139,10 @@ public class EnemyManager : MonoBehaviour
                     }
                 }
             }
-            // 임시 - 
+            //if(TotalCount <= 0)
+            //{
+            //    StageClear();
+            //}
             // TODO : 마지막몹이 죽을 때 스테이지 클리어로 해야함
             // 보스몬스터들은 죽을때 에너미매니저한테 죽었다고 신호를 보내고
             // 에너미매니저는 보스몬스터의 카운터 만큼 신호를 받으면 게임이 끝났다고 판정
@@ -165,7 +173,6 @@ public class EnemyManager : MonoBehaviour
                 enemyFields.Add(enemyField);
             }
         }
-        hasGameField = true;
     }
 
     GameObject mainTargetCrystal;
@@ -180,16 +187,20 @@ public class EnemyManager : MonoBehaviour
     {
         // 이 함수가 불리면 GameStart가 된 시점
         currentStage = nextStage;
-        respawnNormal = respawnNormal * (1 - (0.1f * (currentStage - 1)));
+        //respawnNormal = respawnNormal * (1 - (0.1f * (currentStage - 1)));
+        respawnNormal = respawnNormal * 0.5f;
         respawnElite = respawnNormal * 5;
         respawnBoss = respawnElite * 5;
         // Int형으로 올림
         normalMaxCount = Mathf.CeilToInt((currentStage * 100) * 0.89f);
         eliteMaxCount = Mathf.CeilToInt((currentStage * 100) * 0.10f);
         bossMaxCount = Mathf.CeilToInt((currentStage * 100) * 0.01f);
-        totalCount = normalMaxCount + eliteMaxCount + bossMaxCount;
-        // 임시 - 토탈 샐 필요없음
-        //GameManager.Instance.TotalCount = totalCount;
+
+        // 임시
+        //normalMaxCount = 1;
+        //eliteMaxCount = 1;
+        //bossMaxCount = 0;
+
         normalEnemyInfinity = true;
     }
 }

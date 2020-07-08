@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static SoundManager;
 
 public class CanonTowerlvl1 : Tower
 {
@@ -17,35 +18,44 @@ public class CanonTowerlvl1 : Tower
         targetEnemies.Remove(gameObject);
     }
 
+    public CanonTowerlvl1()
+    {
+        // 속성 설정
+        hp = 150f;
+        buildCost = 250;
+        sellGold = 125;
+        attackSpeed = 7f;
+        range = 12f;
+    }
+    public override void Awake()
+    {
+        base.Awake();
+
+        nextUpgradeF = Resources.Load<GameObject>("CanonTowerLvl2");
+        attackRangeShpereFactory = Resources.Load<GameObject>("AttackRange");
+        bulletFactory = Resources.Load<GameObject>("CanonBall_Lvl1");
+        attackEffectClip = EffectClipsEnum.CanonFire;
+    }
+
     public override void Start()
     {
         base.Start();
-        audioSource = GetComponent<AudioSource>();
 
         // 이 타워의 타겟리스트 생성
         targetEnemies = new List<GameObject>();
-
-        hp = 100f;
-        buildCost = 50;
-        sellGold = buildCost / 2;
-        attackSpeed = 5f;
-        range = 15f;
 
         // 생성 될 때 자신의 비용만큼 골드 차감
         GoldManager.Instance.Gold -= Cost;
 
         state = State.SEARCH;
-        nextUpgradeF = Resources.Load<GameObject>("CanonTower_Lvl2");
 
         // 반지름이 AttackRange인 구체
-        attackRangeShpereFactory = Resources.Load<GameObject>("AttackRange");
         attackRangeShpere = Instantiate(attackRangeShpereFactory);
         attackRangeShpere.transform.parent = transform;
         attackRangeShpere.transform.localScale =
             new Vector3(AttackRange * 2, AttackRange * 2, AttackRange * 2);
         attackRangeShpere.transform.position = transform.position;
 
-        bulletFactory = Resources.Load<GameObject>("CanonBall_Lvl1");
     }
 
     // Update is called once per frame

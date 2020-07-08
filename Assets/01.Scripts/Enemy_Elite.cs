@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static SoundManager;
 
 public class Enemy_Elite : Enemy
 {
@@ -16,9 +17,12 @@ public class Enemy_Elite : Enemy
         attackSpeed = 3.5f;
 
         range = 3f;
-        moveSpeed = 1.5f;
+        moveSpeed = 2.5f;
 
         dropGold = 50;
+
+        attackEffectClips = EffectClipsEnum.EnemyWoodAttack;
+        deathEffectClips = EffectClipsEnum.EnemyWoodDeath;
 
         // 반지름이 AttackRange인 구체
         attackRangeShpereFactory = Resources.Load<GameObject>("EnemyAttackRange");
@@ -27,6 +31,8 @@ public class Enemy_Elite : Enemy
         attackRangeShpere.transform.localScale =
             new Vector3(AttackRange * 2, AttackRange * 2, AttackRange * 2);
         attackRangeShpere.transform.position = transform.position;
+
+        attackVFX = Resources.Load<GameObject>("VFX_WoodAttack");
     }
 
     // Update is called once per frame
@@ -55,5 +61,7 @@ public class Enemy_Elite : Enemy
     protected override void EnemyDestroy()
     {
         base.EnemyDestroy();
+
+        //EnemyManager.Instance.TotalCount--;
     }
 }

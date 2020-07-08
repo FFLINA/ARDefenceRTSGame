@@ -7,12 +7,18 @@ public class GoldManager : MonoBehaviour
 {
     // 게임의 전체 골드를 관리하는 골드매니저 스크립트
 
-
     public static GoldManager Instance;
     private void Awake()
     {
         Instance = this;
     }
+
+
+
+
+
+
+
 
     public Text txtGold;
     string goldMent = "$ ";
@@ -35,6 +41,7 @@ public class GoldManager : MonoBehaviour
     {
         curGold = 1000;
         txtGold.text = goldMent + curGold.ToString();
+        
     }
 
     // Update is called once per frame

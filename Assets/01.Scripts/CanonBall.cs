@@ -30,9 +30,10 @@ public class CanonBall : Bullet
 
     protected override void Start()
     {
+        Destroy(gameObject, 5f);
         //child = transform.Find("HitCheckBall").gameObject;
         child = transform.GetChild(0).gameObject;
-        AttackPower = 150;
+        AttackPower = 250;
         MoveSpeed = 50f;
         parabolaHeight = 30f;
         moveTime = 1.5f;
@@ -41,7 +42,6 @@ public class CanonBall : Bullet
         ParabolaMove();
 
 
-        Destroy(gameObject, 3f);
     }
 
     // Update is called once per frame

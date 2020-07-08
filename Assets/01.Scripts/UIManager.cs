@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 // TODO : 게임필드 생성은 GameManager로 이동
 // 땅을 클릭하면 (해당스테이지의) 게임필드와 크리스탈이 생성되고 게임이 시작된다
@@ -12,14 +14,23 @@ using UnityEngine;
 // UIUpgrade 표시 시 
 public class UIManager : MonoBehaviour
 {
+    public static UIManager Instance;
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     public GameObject buildUIFactory;
     public GameObject upgradeUIFactory;
     GameObject buildUI, upgradeUI;
 
+    public Image messageUI;
+    public Text messageTextUI;
+
     // Start is called before the first frame update
     void Start()
     {
-
+        messageUI.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -29,36 +40,52 @@ public class UIManager : MonoBehaviour
         {
             if (Input.GetMouseButton(0))
             {
-                Vector3 mos = Input.mousePosition;
-                mos.z = Camera.main.farClipPlane;
-                Vector3 dir = Camera.main.ScreenToWorldPoint(mos);
-                RaycastHit hit;
-                int layerMask = 1 << 10 | 1 << 11;
-                // 레이어 10 = AttackRange | 11 = Enemy
-                if (Physics.Raycast(Camera.main.transform.position, dir, out hit, mos.z, ~layerMask))   // 레이어10 제외
+                // UI가 클릭되었을 때 클릭이벤트 중복 발생 방지
+                //if (!EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId)) //  터치
+                if (!EventSystem.current.IsPointerOverGameObject())
                 {
-                    if (hit.transform.CompareTag("GameField"))
+                    //클릭 처리
+                    Vector3 mos = Input.mousePosition;
+                    mos.z = Camera.main.farClipPlane;
+                    Vector3 dir = Camera.main.ScreenToWorldPoint(mos);
+                    RaycastHit hit;
+                    int layerMask = 1 << 10 | 1 << 11;
+                    // 레이어 10 = AttackRange | 11 = Enemy
+                    if (Physics.Raycast(Camera.main.transform.position, dir, out hit, mos.z, ~layerMask))   // 레이어10 제외
                     {
-                        CreateUIBuild(hit);
-                    }
-                    else if (hit.transform.CompareTag("Building"))
-                    {
-                        CreateUIUpgrade(hit);
-                    }
-                    else if (hit.transform.CompareTag("Crystal"))
-                    {
-                        // TODO : 크리스탈의 상세정보를 표시
+                        if (hit.transform.CompareTag("GameField"))
+                        {
+                            CreateUIBuild(hit);
+                        }
+                        else if (hit.transform.CompareTag("Building"))
+                        {
+                            CreateUIUpgrade(hit);
+                        }
+                        else if (hit.transform.CompareTag("Crystal"))
+                        {
+                            // TODO : 크리스탈의 상세정보를 표시
+                        }
                     }
                 }
             }
         }
     }
 
-    
+    internal void SetMessageUI(string v)
+    {
+        messageUI.gameObject.SetActive(true);
+        messageTextUI.text = v;
+        CancelInvoke("DisableMessageUI");
+        Invoke("DisableMessageUI", 1f);
+    }
+    void DisableMessageUI()
+    {
+        messageUI.gameObject.SetActive(false);
+    }
 
     private void CreateUIBuild(RaycastHit hit)
     {
-        if(buildUI == null && upgradeUI == null)
+        if (buildUI == null && upgradeUI == null)
         {
             // 해당 필드에 건물이 없 을 때만
             if (hit.transform.GetComponent<GameField>().isBuildable == true)
@@ -75,7 +102,7 @@ public class UIManager : MonoBehaviour
                 */
             }
         }
-        
+
     }
     private void CreateUIUpgrade(RaycastHit hit)
     {

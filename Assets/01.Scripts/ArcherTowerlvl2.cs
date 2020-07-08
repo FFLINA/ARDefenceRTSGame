@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static SoundManager;
 
 public class ArcherTowerlvl2 : Tower
 {
@@ -18,34 +19,45 @@ public class ArcherTowerlvl2 : Tower
     {
         targetEnemies.Remove(gameObject);
     }
-    public override void Start()
+    public ArcherTowerlvl2()
     {
-        base.Start();
-        // 이 타워의 타겟리스트 생성
-        targetEnemies = new List<GameObject>();
-        audioSource = GetComponent<AudioSource>();
-
+        // 속성 설정
         hp = 300;
         buildCost = 100;
         sellGold = buildCost / 2;
         attackSpeed = 0.5f;
         range = 15f;
 
+    }
+    public override void Awake()
+    {
+        base.Awake();
+
+        nextUpgradeF = Resources.Load<GameObject>("ArcherTowerLvl3");
+        attackRangeShpereFactory = Resources.Load<GameObject>("AttackRange");
+        bulletFactory = Resources.Load<GameObject>("Arrow");
+        attackEffectClip = EffectClipsEnum.ArrowFire;
+
+    }
+
+    public override void Start()
+    {
+        base.Start();
+        // 이 타워의 타겟리스트 생성
+        targetEnemies = new List<GameObject>();
+
         // 생성 될 때 자신의 비용만큼 골드 차감
         GoldManager.Instance.Gold -= Cost;
 
         state = State.SEARCH;
-        nextUpgradeF = Resources.Load<GameObject>("ArcherTower_Lvl3");
 
         // 반지름이 AttackRange인 구체
-        attackRangeShpereFactory = Resources.Load<GameObject>("AttackRange");
         attackRangeShpere = Instantiate(attackRangeShpereFactory);
         attackRangeShpere.transform.parent = transform;
         attackRangeShpere.transform.localScale =
             new Vector3(AttackRange * 2, AttackRange * 2, AttackRange * 2);
         attackRangeShpere.transform.position = transform.position;
 
-        bulletFactory = Resources.Load<GameObject>("Arrow");
     }
 
     // Update is called once per frame

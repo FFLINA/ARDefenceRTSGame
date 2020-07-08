@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static SoundManager;
 
 public class Build : MonoBehaviour
 {
@@ -39,6 +40,27 @@ public class Build : MonoBehaviour
     public virtual void BuildDestroy()
     {
         print("건물 파괴됨");
+        // 판매,업그레이드가 아니라 파괴 될 때
+        if (destroyEffectF != null)
+        {
+            GameObject destroyE = Instantiate(destroyEffectF);
+            destroyE.transform.position = transform.position + Vector3.up;
+            Destroy(destroyE, 1.5f);
+            destroyEffectClip = EffectClipsEnum.TowerDestroy;
+            SoundManager.Instance.PlayEffect(destroyEffectClip, 0.5f);
+        }
+    }
+
+    int nextCost;
+    internal int GetNextCost()
+    {
+        if (nextUpgradeF != null)
+        {
+            GameObject nextTower = Instantiate(nextUpgradeF);
+            nextCost = nextTower.GetComponent<Build>().Cost;
+            Destroy(nextTower);
+        }
+        return nextCost;
     }
 
     protected int buildCost, sellGold;
@@ -50,32 +72,67 @@ public class Build : MonoBehaviour
     // 건물이 건설된 필드의 정보를 가지고 있다
     protected GameObject buildedField;
 
+    // 사운드이펙트 클립 설정 변수
+    protected EffectClipsEnum buildEffectClip;
+    protected EffectClipsEnum attackEffectClip;
+    protected EffectClipsEnum sellEffectClip;
+    protected EffectClipsEnum destroyEffectClip;
+
     public virtual void Sell()
     {
         // 자신의 sellGold만큼 골드를 추가하고 자신 파괴
         GoldManager.Instance.Gold += SellGold;
         // 타워, 배럭에서 자신의 Destroy 함수 추가필요
         // 아마 이게 인터페이스 인가 
+        GameObject sellE = Instantiate(sellEffectF);
+        sellE.transform.position = transform.position;
+        Destroy(sellE, 1.5f);
+        destroyEffectF = null;
+        sellEffectClip = EffectClipsEnum.TowerSell;
+        SoundManager.Instance.PlayEffect(sellEffectClip, 0.5f);
     }
 
     public virtual void Upgrade()
     {
         if (nextUpgradeF != null)
         {
+            // 업그레이드 비용 체크
             GameObject nextTower = Instantiate(nextUpgradeF);
-            nextTower.GetComponent<Build>().SetBuildedField(buildedField);
-            nextTower.transform.position = transform.position;
-            Destroy(gameObject);
+            nextCost = nextTower.GetComponent<Build>().Cost;
+            if (GoldManager.Instance.Gold >= nextCost)
+            {
+                nextTower.GetComponent<Build>().SetBuildedField(buildedField);
+                nextTower.transform.position = transform.position;
+                Destroy(gameObject);
+            }
+            else
+            {
+                Destroy(nextTower);
+                UIManager.Instance.SetMessageUI("Not Enough Money.");
+            }
+
         }
         else
         {
-            print("다음 업그레이드 건물이 없습니다");
+            UIManager.Instance.SetMessageUI("Tower Max Upgrade.");
         }
     }
 
     public void SetBuildedField(GameObject clickedField)
     {
         buildedField = clickedField;
+    }
+
+    // 생성, 판매 이펙트
+    GameObject spawnEffectF;
+    GameObject sellEffectF;
+    GameObject destroyEffectF;
+
+    public virtual void Awake()
+    {
+        spawnEffectF = Resources.Load<GameObject>("VFX_TowerSpawn");
+        sellEffectF = Resources.Load<GameObject>("VFX_TowerSell");
+        destroyEffectF = Resources.Load<GameObject>("VFX_TowerDestroy");
     }
 
     // Start is called before the first frame update
@@ -86,6 +143,12 @@ public class Build : MonoBehaviour
         dir.Normalize();
         transform.forward = dir;
 
+        GameObject spawnE = Instantiate(spawnEffectF);
+        spawnE.transform.position = transform.position;
+        Destroy(spawnE, 1.5f);
+
+        buildEffectClip = EffectClipsEnum.TowerBuild;
+        SoundManager.Instance.PlayEffect(buildEffectClip, 0.5f);
     }
 
     // Update is called once per frame

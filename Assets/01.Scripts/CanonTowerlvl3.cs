@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static SoundManager;
 
 public class CanonTowerlvl3 : Tower
 {
@@ -16,37 +17,46 @@ public class CanonTowerlvl3 : Tower
     {
         targetEnemies.Remove(gameObject);
     }
+    public CanonTowerlvl3()
+    {
+        // 속성 설정
+        hp = 400f;
+        buildCost = 250;
+        sellGold = 325;     // (250 + 150 + 250) / 2
+        attackSpeed = 4f;
+        range = 20f;
+
+    }
+    public override void Awake()
+    {
+        base.Awake();
+
+        nextUpgradeF = Resources.Load<GameObject>("CanonTowerLvl4");
+        attackRangeShpereFactory = Resources.Load<GameObject>("AttackRange");
+        //bulletFactory = Resources.Load<GameObject>("CanonBall_Lvl3");
+        bulletFactory = Resources.Load<GameObject>("CanonBall_Lvl2");
+        attackEffectClip = EffectClipsEnum.CanonFire;
+    }
 
     public override void Start()
     {
         base.Start();
-        audioSource = GetComponent<AudioSource>();
 
         // 이 타워의 타겟리스트 생성
         targetEnemies = new List<GameObject>();
-
-        hp = 100f;
-        buildCost = 50;
-        sellGold = buildCost / 2;
-        attackSpeed = 1f;
-        range = 10f;
 
         // 생성 될 때 자신의 비용만큼 골드 차감
         GoldManager.Instance.Gold -= Cost;
 
         state = State.SEARCH;
-        nextUpgradeF = Resources.Load<GameObject>("CanonTower_Lvl4");
 
         // 반지름이 AttackRange인 구체
-        attackRangeShpereFactory = Resources.Load<GameObject>("AttackRange");
         attackRangeShpere = Instantiate(attackRangeShpereFactory);
         attackRangeShpere.transform.parent = transform;
         attackRangeShpere.transform.localScale =
             new Vector3(AttackRange * 2, AttackRange * 2, AttackRange * 2);
         attackRangeShpere.transform.position = transform.position;
 
-        //bulletFactory = Resources.Load<GameObject>("CanonBall_Lvl3");
-        bulletFactory = Resources.Load<GameObject>("CanonBall_Lvl2");
     }
 
     // Update is called once per frame

@@ -8,7 +8,7 @@ public class Arrow : Bullet
     protected override void Start()
     {
         base.Start();
-        MoveSpeed = 30f;
+        MoveSpeed = 15f;
     }
 
     Vector3 arrowRotateOffset = new Vector3(0, 90f, 0);
@@ -23,7 +23,7 @@ public class Arrow : Bullet
         else
         {
             Vector3 dir = target.transform.position - transform.position;
-            transform.rotation = Quaternion.LookRotation(dir + arrowRotateOffset);
+            transform.rotation = Quaternion.LookRotation(dir);
             transform.position += dir * MoveSpeed * Time.deltaTime;
         }
     }

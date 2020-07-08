@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using static SoundManager;
+
 public class Tower : Build
 {
     // Build
@@ -32,7 +34,6 @@ public class Tower : Build
         SEARCH, ATTACK
     }
     protected State state;
-    protected AudioSource audioSource;
 
     protected float attackSpeed, range;
 
@@ -89,7 +90,10 @@ public class Tower : Build
     {
         base.Upgrade();
     }
-
+    public override void Awake()
+    {
+        base.Awake();
+    }
     public override void Start()
     {
         base.Start();
@@ -138,9 +142,10 @@ public class Tower : Build
             if (targetEnemies.Count != 0)
             {
                 bullet.GetComponent<Bullet>().SetTarget(targetEnemies[0].transform.Find("Model").gameObject);
-                audioSource.Stop();
-                audioSource.Play();
             }
+
+            // 공격 사운드 이펙트
+            SoundManager.Instance.PlayEffect(attackEffectClip, 0.25f);
 
             tempTime = 0;
         }

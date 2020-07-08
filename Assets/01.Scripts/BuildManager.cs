@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,6 +12,7 @@ public class BuildManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+
     }
 
     // Start is called before the first frame update
@@ -22,7 +24,7 @@ public class BuildManager : MonoBehaviour
     // Updatis called once per frame
     void Update()
     {
-        
+
     }
 
     public Vector3 CrystalPosition { get; set; }

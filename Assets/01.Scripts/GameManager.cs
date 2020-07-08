@@ -21,22 +21,10 @@ public class GameManager : MonoBehaviour
 
     public Text stageText;
     string stageMent = "STAGE : ";
-    public Text totalCountText;
-    string countMent = "REMAIN : ";
     int stage;
 
     public bool hasCrystal { get; set; }
     public bool GameStart { get; set; }
-    int totalCount;
-    public int TotalCount 
-    { 
-        get { return totalCount; }
-        set
-        {
-            totalCount = value;
-            totalCountText.text = countMent + totalCount.ToString();
-        }
-    }
 
     public Button gameStartButton;
     public GameObject gameOverUI;
@@ -121,7 +109,7 @@ public class GameManager : MonoBehaviour
         stage++;
         stageText.text = stageMent + stage.ToString("00");
         EnemyManager.Instance.SetNextStage(stage);
-        Crystal.Instance.clearEffectF.SetActive(false);
+        Crystal.Instance.clearEffect.SetActive(false);
     }
 
     public void FinishStage()
@@ -129,7 +117,7 @@ public class GameManager : MonoBehaviour
         GameStart = false;
         //gameStartButton.enabled = true;
         gameStartButton.gameObject.SetActive(true);
-        Crystal.Instance.clearEffectF.SetActive(true);
+        Crystal.Instance.clearEffect.SetActive(true);
     }
 
     public void GameOver()

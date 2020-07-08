@@ -196,9 +196,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 105abdf95b13e994793b2fb42bb409c5, type: 3}
     m_FontSize: 50
-    m_FontStyle: 0
+    m_FontStyle: 1
     m_BestFit: 1
     m_MinSize: 5
     m_MaxSize: 70
@@ -210,7 +210,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'Archor
 
-    Tower'
+    $ 50'
 --- !u!114 &719150655045211753
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -422,9 +422,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 105abdf95b13e994793b2fb42bb409c5, type: 3}
     m_FontSize: 50
-    m_FontStyle: 0
+    m_FontStyle: 1
     m_BestFit: 1
     m_MinSize: 5
     m_MaxSize: 70
@@ -436,7 +436,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'Canon
 
-    Tower'
+    $ 250'
 --- !u!114 &770582091261613559
 MonoBehaviour:
   m_ObjectHideFlags: 0

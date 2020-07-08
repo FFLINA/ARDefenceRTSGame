@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static SoundManager;
 
 public class Enemy_Normal : Enemy
 {
@@ -19,6 +20,8 @@ public class Enemy_Normal : Enemy
 
         dropGold = 10;
 
+        attackEffectClips = EffectClipsEnum.EnemyWolfAttack;
+        deathEffectClips = EffectClipsEnum.EnemyWolfDeath;
         // 반지름이 AttackRange인 구체
         attackRangeShpereFactory = Resources.Load<GameObject>("EnemyAttackRange");
         attackRangeShpere = Instantiate(attackRangeShpereFactory);
@@ -26,6 +29,8 @@ public class Enemy_Normal : Enemy
         attackRangeShpere.transform.localScale =
             new Vector3(AttackRange * 2, AttackRange * 2, AttackRange * 2);
         attackRangeShpere.transform.position = transform.position;
+
+        attackVFX = Resources.Load<GameObject>("VFX_WolfAttack");
     }
 
     // Update is called once per frame
@@ -54,6 +59,8 @@ public class Enemy_Normal : Enemy
     protected override void EnemyDestroy()
     {
         base.EnemyDestroy();
+
+        //EnemyManager.Instance.TotalCount--;
     }
 
     public override void OnAttackEventCall()

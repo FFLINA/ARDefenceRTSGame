@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static SoundManager;
 
 public class Enemy : MonoBehaviour
 {
@@ -19,15 +20,20 @@ public class Enemy : MonoBehaviour
         IDLE, MOVE, ATTACK
     }
 
+    protected EffectClipsEnum attackEffectClips;
+    protected EffectClipsEnum deathEffectClips;
     public virtual void OnAttackEventCall()
     {
-        print("Enemy Attack Event Call");
+        attackEffect = Instantiate(attackVFX);
+        attackEffect.transform.position = attackPoint.position;
+        Destroy(attackEffect, 1f);
         AttackTarget(currentTarget);
+
+        SoundManager.Instance.PlayEffect(attackEffectClips, 0.25f);
     }
 
     internal void OnAttackEndEventCall()
     {
-        print("Enemy Attack End Event Call");
 
         anim.SetTrigger("Idle");
     }
@@ -58,6 +64,7 @@ public class Enemy : MonoBehaviour
             if (hp <= 0)
             {
                 // 죽음
+
                 EnemyDestroy();
             }
         }
@@ -84,6 +91,10 @@ public class Enemy : MonoBehaviour
     protected GameObject attackRangeShpereFactory;
     protected GameObject attackRangeShpere;
 
+    protected GameObject attackVFX;
+    GameObject attackEffect;
+    Transform attackPoint;
+
     protected GameObject DeathVFX;
     public Animator anim;
     // Start is called before the first frame update
@@ -94,8 +105,9 @@ public class Enemy : MonoBehaviour
         nearTarget = null;
         currentTarget = crystalTarget;
         DeathVFX = Resources.Load<GameObject>("VFX_EnemyDeath");
-    }
 
+        attackPoint = transform.Find("AttackPoint").transform;
+    }
     // Update is called once per frame
     protected virtual void Update()
     {
@@ -143,13 +155,13 @@ public class Enemy : MonoBehaviour
             // 사정거리 안에 건물(or유닛) 이 들어오면 그 타겟을 공격
             if (nearTarget != null)
             {
-                print("Target Change");
                 currentTarget = nearTarget;
                 dir = currentTarget.transform.position - transform.position;
                 dir.Normalize();
                 transform.forward = dir;
                 state = State.ATTACK;
-                anim.SetTrigger("Attack");  //닿자마자 첫타 한대 때림
+                tempTime = AttackSpeed;
+
             }
         }
     }
@@ -185,7 +197,7 @@ public class Enemy : MonoBehaviour
         {
             // 크리스탈 공격
             Crystal.Instance.HP -= AttackPower;
-            print("Crystal Attack.");
+            UIManager.Instance.SetMessageUI("Crystal is UnderAttack");
         }
         else if (currentTarget.CompareTag("Building"))
         {
@@ -227,6 +239,9 @@ public class Enemy : MonoBehaviour
         GameObject vfx = Instantiate(DeathVFX);
         vfx.transform.position = transform.position;
         vfx.SetActive(true);
+
+        SoundManager.Instance.PlayEffect(deathEffectClips, 0.5f);
+
         anim.SetTrigger("Die");
     }
 

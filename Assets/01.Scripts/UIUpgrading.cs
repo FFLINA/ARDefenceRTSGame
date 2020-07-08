@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIUpgrading : MonoBehaviour
 {
@@ -12,6 +13,15 @@ public class UIUpgrading : MonoBehaviour
     void Start()
     {
         target = transform.parent.gameObject;
+        int cost = target.GetComponent<Build>().GetNextCost();
+        if (cost == 0)
+        {
+            upgradeText.text = upgradeMent + "\nMax";
+        }
+        else
+        {
+            upgradeText.text = upgradeMent + "\n$ " + cost.ToString();
+        }
 
     }
 
@@ -19,8 +29,11 @@ public class UIUpgrading : MonoBehaviour
     void Update()
     {
         float dist = Vector3.Distance(transform.position, Camera.main.transform.position);
-        transform.localScale = transform.localScale.normalized * (dist / 4);
+        transform.localScale = transform.localScale.normalized * (dist / 3);
     }
+
+    public Text upgradeText;
+    string upgradeMent = "Upgrade";
 
     public void OnClickUpgrade()
     {
@@ -31,6 +44,7 @@ public class UIUpgrading : MonoBehaviour
     public void OnClickSell()
     {
         target.GetComponent<Build>().Sell();
+        int sellGold = target.GetComponent<Build>().SellGold;
         Destroy(gameObject);
     }
 

@@ -20,7 +20,7 @@ public class UIBuilding : MonoBehaviour
     void Update()
     {
         float dist = Vector3.Distance(transform.position, Camera.main.transform.position);
-        transform.localScale = transform.localScale.normalized * (dist / 4);
+        transform.localScale = transform.localScale.normalized * (dist / 3);
     }
     public void OnClickArcherTower()
     {
@@ -29,17 +29,27 @@ public class UIBuilding : MonoBehaviour
         // 해당 필드가 건설 가능일때만
         if (clickedField.GetComponent<GameField>().isBuildable == true)
         {
-            archerTowerFactory = Resources.Load<GameObject>("ArcherTower_Lvl1");
+            archerTowerFactory = Resources.Load<GameObject>("ArcherTowerLvl1");
             GameObject archerTower = Instantiate(archerTowerFactory);
-            archerTower.transform.position = transform.position;
-            archerTower.GetComponent<Build>().SetBuildedField(clickedField);
-            // 건설된 필드의 isBuilded 를 false로
-            clickedField.GetComponent<GameField>().isBuildable = false;
-            Destroy(gameObject);
+
+            if (GoldManager.Instance.Gold >= archerTower.GetComponent<Build>().Cost)
+            {
+                archerTower.transform.position = transform.position;
+                archerTower.GetComponent<Build>().SetBuildedField(clickedField);
+                // 건설된 필드의 isBuilded 를 false로
+                clickedField.GetComponent<GameField>().isBuildable = false;
+                Destroy(gameObject);
+            }
+            else
+            {
+                Destroy(archerTower);
+                UIManager.Instance.SetMessageUI("Not Enough Money.");
+            }
+
         }
         else
         {
-            print("이미 건물이 건설되어 있습니다");
+            UIManager.Instance.SetMessageUI("Already Builded.");
         }
     }
 
@@ -47,17 +57,26 @@ public class UIBuilding : MonoBehaviour
     {
         if (clickedField.GetComponent<GameField>().isBuildable == true)
         {
-            canonTowerFactory = Resources.Load<GameObject>("CanonTower_Lvl1");
+            canonTowerFactory = Resources.Load<GameObject>("CanonTowerLvl1");
             GameObject canonTower = Instantiate(canonTowerFactory);
-            canonTower.transform.position = transform.position;
-            canonTower.GetComponent<Build>().SetBuildedField(clickedField);
-            // 건설된 필드의 isBuilded 를 false로
-            clickedField.GetComponent<GameField>().isBuildable = false;
-            Destroy(gameObject);
+            if(GoldManager.Instance.Gold >= canonTower.GetComponent<Build>().Cost)
+            {
+                canonTower.transform.position = transform.position;
+                canonTower.GetComponent<Build>().SetBuildedField(clickedField);
+                // 건설된 필드의 isBuilded 를 false로
+                clickedField.GetComponent<GameField>().isBuildable = false;
+                Destroy(gameObject);
+            }
+            else
+            {
+                Destroy(canonTower);
+                UIManager.Instance.SetMessageUI("Not Enough Money.");
+            }
+            
         }
         else
         {
-            print("이미 건물이 건설되어 있습니다");
+            UIManager.Instance.SetMessageUI("Already Builded");
         }
     }
     public void OnClickCancel()

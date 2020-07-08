@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static SoundManager;
 
 public class Enemy_Boss : Enemy
 {
@@ -11,15 +12,17 @@ public class Enemy_Boss : Enemy
         attackers = new List<GameObject>();
         //DeathVFX = Resources.Load<GameObject>("SFX_GolemDeath");
 
-        HP = 2000f;
+        HP = 3000f;
         attackPower = 80f;
         attackSpeed = 4f;
 
         range = 4f;
-        moveSpeed = 3.0f;
+        moveSpeed = 2.5f;
 
         dropGold = 500;
 
+        attackEffectClips = EffectClipsEnum.EnemyGolemAttack;
+        deathEffectClips = EffectClipsEnum.EnemyGolemDeath;
         // 반지름이 AttackRange인 구체
         attackRangeShpereFactory = Resources.Load<GameObject>("EnemyAttackRange");
         attackRangeShpere = Instantiate(attackRangeShpereFactory);
@@ -27,6 +30,8 @@ public class Enemy_Boss : Enemy
         attackRangeShpere.transform.localScale =
             new Vector3(AttackRange * 2, AttackRange * 2, AttackRange * 2);
         attackRangeShpere.transform.position = transform.position;
+
+        attackVFX = Resources.Load<GameObject>("VFX_GolemAttack");
     }
 
     // Update is called once per frame
@@ -55,6 +60,8 @@ public class Enemy_Boss : Enemy
     protected override void EnemyDestroy()
     {
         base.EnemyDestroy();
+
+        //EnemyManager.Instance.TotalCount--;
         EnemyManager.Instance.BossDestroySignal();
     }
 
