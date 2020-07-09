@@ -37,6 +37,8 @@ public class ArcherTowerlvl3 : Tower
         nextUpgradeF = null;
         attackRangeShpereFactory = Resources.Load<GameObject>("AttackRange");
         bulletFactory = Resources.Load<GameObject>("Arrow");
+
+        attackEffectClip = EffectClipsEnum.ArrowFire;
     }
 
     public override void Start()
@@ -58,7 +60,7 @@ public class ArcherTowerlvl3 : Tower
         attackRangeShpere.transform.localScale =
             new Vector3(AttackRange * 2, AttackRange * 2, AttackRange * 2);
         attackRangeShpere.transform.position = transform.position;
-        attackEffectClip = EffectClipsEnum.ArrowFire;
+        //ScaleManager.Instance.ScaleFixForAR(attackRangeShpere);
 
     }
 

@@ -45,8 +45,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.13362822, y: 0.14238691, z: 1.380097}
-  m_Center: {x: 0.02628611, y: -0.0029239655, z: -0.009756684}
+  m_Size: {x: 0.07009628, y: 0.09327854, z: 1.3878174}
+  m_Center: {x: 0.03187992, y: 0.0018261448, z: 0.008487105}
 --- !u!114 &-2064778019398320282
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -102,7 +102,7 @@ TrailRenderer:
   m_Time: 0.05
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.05
+    widthMultiplier: 0.01
     widthCurve:
       serializedVersion: 2
       m_Curve:

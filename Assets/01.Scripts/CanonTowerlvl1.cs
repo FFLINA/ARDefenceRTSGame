@@ -55,6 +55,7 @@ public class CanonTowerlvl1 : Tower
         attackRangeShpere.transform.localScale =
             new Vector3(AttackRange * 2, AttackRange * 2, AttackRange * 2);
         attackRangeShpere.transform.position = transform.position;
+        //ScaleManager.Instance.ScaleFixForAR(attackRangeShpere);
 
     }
 

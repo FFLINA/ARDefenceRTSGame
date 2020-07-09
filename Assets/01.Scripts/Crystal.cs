@@ -31,10 +31,12 @@ public class Crystal : MonoBehaviour
 
                 Vector3 offset = new Vector3(-90f, 0, 0);
                 destroyEffect = Instantiate(destroyEffectF);
+                ScaleManager.Instance.ScaleFixForAR(destroyEffect);
                 destroyEffect.transform.position = transform.position;
                 destroyEffect.transform.eulerAngles = offset;
 
                 afterEffect = Instantiate(afterEffectF);
+                ScaleManager.Instance.ScaleFixForAR(afterEffect);
                 afterEffect.transform.position = transform.position;
                 afterEffect.transform.eulerAngles = offset;
 

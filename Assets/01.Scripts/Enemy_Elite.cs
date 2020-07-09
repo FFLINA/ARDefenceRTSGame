@@ -18,6 +18,8 @@ public class Enemy_Elite : Enemy
 
         range = 3f;
         moveSpeed = 2.5f;
+        moveSpeed = ScaleManager.Instance.MoveSpeedFixForAR(moveSpeed);
+
 
         dropGold = 50;
 
@@ -31,6 +33,7 @@ public class Enemy_Elite : Enemy
         attackRangeShpere.transform.localScale =
             new Vector3(AttackRange * 2, AttackRange * 2, AttackRange * 2);
         attackRangeShpere.transform.position = transform.position;
+        //ScaleManager.Instance.ScaleFixForAR(attackRangeShpere);
 
         attackVFX = Resources.Load<GameObject>("VFX_WoodAttack");
     }

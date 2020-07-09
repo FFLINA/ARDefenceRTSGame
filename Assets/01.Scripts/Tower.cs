@@ -138,6 +138,7 @@ public class Tower : Build
         if (AttackSpeed <= tempTime)
         {
             bullet = Instantiate(bulletFactory);
+            ScaleManager.Instance.ScaleFixForAR(bullet);
             bullet.transform.position = transform.Find("Point").position;
             if (targetEnemies.Count != 0)
             {
@@ -145,7 +146,7 @@ public class Tower : Build
             }
 
             // 공격 사운드 이펙트
-            SoundManager.Instance.PlayEffect(attackEffectClip, 0.25f);
+            SoundManager.Instance.PlayEffect(attackEffectClip, 0.15f);
 
             tempTime = 0;
         }

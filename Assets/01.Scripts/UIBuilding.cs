@@ -10,16 +10,19 @@ public class UIBuilding : MonoBehaviour
 
     GameObject archerTowerFactory;
     GameObject canonTowerFactory;
+    float dist;
     // Start is called before the first frame update
     void Start()
     {
+        dist = Vector3.Distance(transform.position, Camera.main.transform.position);
 
+        transform.localScale = transform.localScale.normalized * (dist / 3);
     }
 
     // Update is called once per frame
     void Update()
     {
-        float dist = Vector3.Distance(transform.position, Camera.main.transform.position);
+        
         transform.localScale = transform.localScale.normalized * (dist / 3);
     }
     public void OnClickArcherTower()
@@ -31,10 +34,12 @@ public class UIBuilding : MonoBehaviour
         {
             archerTowerFactory = Resources.Load<GameObject>("ArcherTowerLvl1");
             GameObject archerTower = Instantiate(archerTowerFactory);
+            ScaleManager.Instance.ScaleFixForAR(archerTower);
 
             if (GoldManager.Instance.Gold >= archerTower.GetComponent<Build>().Cost)
             {
-                archerTower.transform.position = transform.position;
+                Vector3 offset = new Vector3(0, 0.1f, 0);
+                archerTower.transform.position = transform.position + offset;
                 archerTower.GetComponent<Build>().SetBuildedField(clickedField);
                 // 건설된 필드의 isBuilded 를 false로
                 clickedField.GetComponent<GameField>().isBuildable = false;
@@ -59,9 +64,12 @@ public class UIBuilding : MonoBehaviour
         {
             canonTowerFactory = Resources.Load<GameObject>("CanonTowerLvl1");
             GameObject canonTower = Instantiate(canonTowerFactory);
-            if(GoldManager.Instance.Gold >= canonTower.GetComponent<Build>().Cost)
+            ScaleManager.Instance.ScaleFixForAR(canonTower);
+
+            if (GoldManager.Instance.Gold >= canonTower.GetComponent<Build>().Cost)
             {
-                canonTower.transform.position = transform.position;
+                Vector3 offset = new Vector3(0, 0.1f, 0);
+                canonTower.transform.position = transform.position + offset;
                 canonTower.GetComponent<Build>().SetBuildedField(clickedField);
                 // 건설된 필드의 isBuilded 를 false로
                 clickedField.GetComponent<GameField>().isBuildable = false;

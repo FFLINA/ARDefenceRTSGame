@@ -57,7 +57,7 @@ public class ArcherTowerlvl2 : Tower
         attackRangeShpere.transform.localScale =
             new Vector3(AttackRange * 2, AttackRange * 2, AttackRange * 2);
         attackRangeShpere.transform.position = transform.position;
-
+        //ScaleManager.Instance.ScaleFixForAR(attackRangeShpere);
     }
 
     // Update is called once per frame

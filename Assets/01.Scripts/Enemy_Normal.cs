@@ -17,6 +17,7 @@ public class Enemy_Normal : Enemy
 
         range = 2f;
         moveSpeed = 5.0f;
+        moveSpeed = ScaleManager.Instance.MoveSpeedFixForAR(moveSpeed);
 
         dropGold = 10;
 
@@ -29,6 +30,7 @@ public class Enemy_Normal : Enemy
         attackRangeShpere.transform.localScale =
             new Vector3(AttackRange * 2, AttackRange * 2, AttackRange * 2);
         attackRangeShpere.transform.position = transform.position;
+        //ScaleManager.Instance.ScaleFixForAR(attackRangeShpere);
 
         attackVFX = Resources.Load<GameObject>("VFX_WolfAttack");
     }

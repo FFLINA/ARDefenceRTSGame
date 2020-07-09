@@ -38,13 +38,15 @@ public class UIManager : MonoBehaviour
     {
         if (GameManager.Instance.hasCrystal == true)
         {
+            // 모바일 대응?
             if (Input.GetMouseButton(0))
             {
                 // UI가 클릭되었을 때 클릭이벤트 중복 발생 방지
-                //if (!EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId)) //  터치
-                if (!EventSystem.current.IsPointerOverGameObject())
+                if (!EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId)) //  터치
+                    //if (!EventSystem.current.IsPointerOverGameObject())
                 {
                     //클릭 처리
+                    // 모바일 대응?
                     Vector3 mos = Input.mousePosition;
                     mos.z = Camera.main.farClipPlane;
                     Vector3 dir = Camera.main.ScreenToWorldPoint(mos);
@@ -92,8 +94,9 @@ public class UIManager : MonoBehaviour
             {
                 buildUI = Instantiate(buildUIFactory);
                 // 게임필드 클릭 , 클릭된 게임필드 위치에 ui 표시, 클릭된 게임필드 위치에 건설,
-                Vector3 offset = new Vector3(0, hit.transform.localScale.y / 2, 0);
-                buildUI.transform.position = hit.transform.position + offset;
+                //Vector3 offset = new Vector3(0, hit.transform.localScale.y / 2, 0);
+                //buildUI.transform.position = hit.transform.position + offset;
+                buildUI.transform.position = hit.transform.position;
 
 
                 buildUI.GetComponent<UIBuilding>().SetClickedField(hit.transform.gameObject);
@@ -116,7 +119,6 @@ public class UIManager : MonoBehaviour
             upgradeUI = Instantiate(upgradeUIFactory);
             // UI를 타워의 자식으로
             upgradeUI.transform.parent = hit.transform.parent; // hit은 모델링이라
-
             // 임시
             upgradeUI.transform.position = upgradeUI.transform.parent.Find("Point").transform.position;
             if (buildUI != null)

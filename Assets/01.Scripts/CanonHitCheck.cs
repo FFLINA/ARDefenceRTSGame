@@ -14,7 +14,7 @@ public class CanonHitCheck : MonoBehaviour
     {
         explosionF = Resources.Load<GameObject>("VFX_Canon_Explosion");
     }
-    float explosionRadius = 10f;
+    float explosionRadius = 1f;
     // Update is called once per frame
     void Update()
     {
@@ -31,8 +31,10 @@ public class CanonHitCheck : MonoBehaviour
 
         // 부딪힌 위치에 explosion표시, 범위안에 있는 오브젝트 destroy
         GameObject explosion = Instantiate(explosionF);
+        ScaleManager.Instance.ScaleFixForAR(explosion);
         explosion.transform.position = transform.position;
         Destroy(explosion, 4.0f);
+
         EffectClipsEnum effectClips = EffectClipsEnum.CanonExplosion;
         SoundManager.Instance.PlayEffect(effectClips, 0.5f);
 

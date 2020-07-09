@@ -36,9 +36,9 @@ public class CanonBall : Bullet
         child = transform.GetChild(0).gameObject;
         AttackPower = 250;
         MoveSpeed = 50f;
-        parabolaHeight = 30f;
+        parabolaHeight = 3f;
         moveTime = 1.5f;
-        Vector3 offset = new Vector3(0, -1f, 0);
+        Vector3 offset = new Vector3(0, -0.1f, 0);
 
         try
         {

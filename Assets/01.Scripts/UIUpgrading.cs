@@ -9,9 +9,13 @@ public class UIUpgrading : MonoBehaviour
 
 
     GameObject target;
+    float dist;
     // Start is called before the first frame update
     void Start()
     {
+        dist = Vector3.Distance(transform.position, Camera.main.transform.position);
+        transform.localScale = transform.localScale.normalized * (dist / 3) * 7f;
+
         target = transform.parent.gameObject;
         int cost = target.GetComponent<Build>().GetNextCost();
         if (cost == 0)
@@ -28,8 +32,7 @@ public class UIUpgrading : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float dist = Vector3.Distance(transform.position, Camera.main.transform.position);
-        transform.localScale = transform.localScale.normalized * (dist / 3);
+        transform.localScale = transform.localScale.normalized * (dist / 3) * 7f;
     }
 
     public Text upgradeText;

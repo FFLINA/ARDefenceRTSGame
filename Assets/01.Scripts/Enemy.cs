@@ -25,11 +25,12 @@ public class Enemy : MonoBehaviour
     public virtual void OnAttackEventCall()
     {
         attackEffect = Instantiate(attackVFX);
+        ScaleManager.Instance.ScaleFixForAR(attackEffect);
         attackEffect.transform.position = attackPoint.position;
         Destroy(attackEffect, 1f);
         AttackTarget(currentTarget);
 
-        SoundManager.Instance.PlayEffect(attackEffectClips, 0.25f);
+        SoundManager.Instance.PlayEffect(attackEffectClips, 0.4f);
     }
 
     internal void OnAttackEndEventCall()
@@ -237,10 +238,11 @@ public class Enemy : MonoBehaviour
         // 에너미 파괴됨
         Destroy(gameObject);
         GameObject vfx = Instantiate(DeathVFX);
+        ScaleManager.Instance.ScaleFixForAR(vfx);
         vfx.transform.position = transform.position;
         vfx.SetActive(true);
 
-        SoundManager.Instance.PlayEffect(deathEffectClips, 0.5f);
+        SoundManager.Instance.PlayEffect(deathEffectClips, 0.3f);
 
         anim.SetTrigger("Die");
     }

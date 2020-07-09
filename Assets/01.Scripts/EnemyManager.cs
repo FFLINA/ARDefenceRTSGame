@@ -62,7 +62,7 @@ public class EnemyManager : MonoBehaviour
             // 버그 - 2마리 죽여야하는데 1마리 죽여도 2마리죽은것처럼 보스데스카운트가 올라감
             StageClear();
             clearEffectClip = EffectClipsEnum.StageClear;
-            SoundManager.Instance.PlayEffect(clearEffectClip, 0.7f);
+            SoundManager.Instance.PlayEffect(clearEffectClip, 0.6f);
         }
     }
     EffectClipsEnum clearEffectClip;
@@ -134,7 +134,7 @@ public class EnemyManager : MonoBehaviour
                     if(bossCount == 1)
                     {
                         BGMEnum bgm = BGMEnum.BGM_Boss;
-                        SoundManager.Instance.PlayBGM(bgm, 0.3f);
+                        SoundManager.Instance.PlayBGM(bgm, 0.6f);
                     }
                     //TotalCount++;
                     tempBoss = 0;
@@ -159,6 +159,7 @@ public class EnemyManager : MonoBehaviour
     {
         GameObject enemy;
         enemy = Instantiate(enemyFactory);
+        ScaleManager.Instance.ScaleFixForAR(enemy);
         Vector3 offset = new Vector3(0, enemyFields[0].transform.localScale.y, 0) / 2;
         int ranValue = UnityEngine.Random.Range(0, enemyFields.Count);
         enemy.transform.position = enemyFields[ranValue].transform.position + offset;

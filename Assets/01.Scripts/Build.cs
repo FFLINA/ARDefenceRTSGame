@@ -45,6 +45,7 @@ public class Build : MonoBehaviour
         {
             GameObject destroyE = Instantiate(destroyEffectF);
             destroyE.transform.position = transform.position + Vector3.up;
+            ScaleManager.Instance.ScaleFixForAR(destroyE);
             Destroy(destroyE, 1.5f);
             destroyEffectClip = EffectClipsEnum.TowerDestroy;
             SoundManager.Instance.PlayEffect(destroyEffectClip, 0.5f);
@@ -57,6 +58,7 @@ public class Build : MonoBehaviour
         if (nextUpgradeF != null)
         {
             GameObject nextTower = Instantiate(nextUpgradeF);
+            ScaleManager.Instance.ScaleFixForAR(nextTower);
             nextCost = nextTower.GetComponent<Build>().Cost;
             Destroy(nextTower);
         }
@@ -86,6 +88,7 @@ public class Build : MonoBehaviour
         // 아마 이게 인터페이스 인가 
         GameObject sellE = Instantiate(sellEffectF);
         sellE.transform.position = transform.position;
+        ScaleManager.Instance.ScaleFixForAR(sellE);
         Destroy(sellE, 1.5f);
         destroyEffectF = null;
         sellEffectClip = EffectClipsEnum.TowerSell;
@@ -98,6 +101,7 @@ public class Build : MonoBehaviour
         {
             // 업그레이드 비용 체크
             GameObject nextTower = Instantiate(nextUpgradeF);
+            ScaleManager.Instance.ScaleFixForAR(nextTower);
             nextCost = nextTower.GetComponent<Build>().Cost;
             if (GoldManager.Instance.Gold >= nextCost)
             {
@@ -138,12 +142,13 @@ public class Build : MonoBehaviour
     // Start is called before the first frame update
     public virtual void Start()
     {
-        // 건물 생성시 크리스탈 반대방향을 바라보게 한다
-        Vector3 dir = BuildManager.Instance.CrystalPosition - transform.position;
-        dir.Normalize();
-        transform.forward = dir;
+        //// 건물 생성시 크리스탈 반대방향을 바라보게 한다
+        //Vector3 dir = BuildManager.Instance.CrystalPosition - transform.position;
+        //dir.Normalize();  
+        //transform.forward = dir;
 
         GameObject spawnE = Instantiate(spawnEffectF);
+        ScaleManager.Instance.ScaleFixForAR(spawnE);
         spawnE.transform.position = transform.position;
         Destroy(spawnE, 1.5f);
 
