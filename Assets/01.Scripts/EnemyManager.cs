@@ -131,6 +131,11 @@ public class EnemyManager : MonoBehaviour
                     // boss 적 생산
                     CreateEnemy(enemyBossFactory);
                     bossCount++;
+                    if(bossCount == 1)
+                    {
+                        BGMEnum bgm = BGMEnum.BGM_Boss;
+                        SoundManager.Instance.PlayBGM(bgm, 0.3f);
+                    }
                     //TotalCount++;
                     tempBoss = 0;
                     if(bossMaxCount == bossCount) // 마지막 보스

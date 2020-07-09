@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -38,8 +39,16 @@ public class CanonBall : Bullet
         parabolaHeight = 30f;
         moveTime = 1.5f;
         Vector3 offset = new Vector3(0, -1f, 0);
-        parabolaDestination = target.transform.position + offset;
-        ParabolaMove();
+
+        try
+        {
+            parabolaDestination = target.transform.position + offset;
+            ParabolaMove();
+        }
+        catch(NullReferenceException e)
+        {
+            Destroy(gameObject);
+        }
 
 
     }

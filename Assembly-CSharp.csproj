@@ -124,6 +124,7 @@
     <Compile Include="Assets\99.Assets\ToonFX\Demo\ToonFXSceneSelect.cs" />
     <Compile Include="Assets\EnemyAnimEvent.cs" />
     <Compile Include="Assets\SoundManager.cs" />
+    <Compile Include="Assets\TitleGameManager.cs" />
     <None Include="Assets\99.Assets\Polygonal Creatures Pack\Polygonal Golem\www.meshtint.com.txt" />
     <None Include="Assets\99.Assets\JMO Assets\WarFX\Shaders\WFX_S Multiply Soft.shader" />
     <None Include="Assets\99.Assets\Polygonal Creatures Pack\Polygonal Treant\www.meshtint.com.txt" />
@@ -169,7 +170,6 @@
     <None Include="Assets\99.Assets\JMO Assets\WarFX\Shaders\WFX_S Alpha-Diffuse TintColor.shader" />
     <None Include="Assets\99.Assets\Polygonal Creatures Pack\Polygonal Dragon\www.meshtint.com.txt" />
     <None Include="Assets\99.Assets\JMO Assets\WarFX\Shaders\WFX_S AlphaBlend NoSoftParticles.shader" />
-    <None Include="Assets\Monster SFX - 111518\Notes.txt" />
     <Reference Include="UnityEngine">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.3.14f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
@@ -733,6 +733,9 @@
     </Reference>
     <Reference Include="UnityEditor.UI">
       <HintPath>C:/Unity/ARDefenceRTSGame/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.2D.Sprite.Editor">
+      <HintPath>C:/Unity/ARDefenceRTSGame/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using static SoundManager;
 
 public class GameManager : MonoBehaviour
 {
@@ -35,11 +37,14 @@ public class GameManager : MonoBehaviour
     GameObject crystalFactory;
     GameObject crystal;
 
+    BGMEnum bgm;
 
     // Start is called before the first frame update
     void Start()
     {
         //Cursor.lockState = CursorLockMode.Confined;
+        bgm = BGMEnum.BGM_Game;
+        SoundManager.Instance.PlayBGM(bgm, 0.3f);
 
         hasCrystal = false;
         GameStart = false;
@@ -103,6 +108,9 @@ public class GameManager : MonoBehaviour
 
     public void OnClickStart()
     {
+        bgm = BGMEnum.BGM_Game;
+        SoundManager.Instance.PlayBGM(bgm, 0.3f);
+
         GameStart = true;
         gameStartButton.gameObject.SetActive(false);
         //gameStartButton.enabled = false;
@@ -114,6 +122,8 @@ public class GameManager : MonoBehaviour
 
     public void FinishStage()
     {
+        SoundManager.Instance.StopBGM();
+
         GameStart = false;
         //gameStartButton.enabled = true;
         gameStartButton.gameObject.SetActive(true);
@@ -122,10 +132,21 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
+        bgm = BGMEnum.BGM_GameOver;
+        SoundManager.Instance.PlayBGM(bgm, 0.3f);
+
         crystal = null;
         hasCrystal = false;
         GameStart = false;
         gameOverUI.SetActive(true);
+    }
 
+    public void OnClickRestartButton()
+    {
+        SceneManager.LoadScene(1);
+    }
+    public void OnClickTitleButton()
+    {
+        SceneManager.LoadScene(0);
     }
 }
