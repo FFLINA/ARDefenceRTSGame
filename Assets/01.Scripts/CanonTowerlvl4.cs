@@ -20,6 +20,7 @@ public class CanonTowerlvl4 : Tower
     public CanonTowerlvl4()
     {
         hp = 600f;
+        maxHp = hp;
         buildCost = 400;
         sellGold = 525;     // (250 + 150 + 250 + 400) / 2
         attackSpeed = 3.5f;
@@ -56,6 +57,9 @@ public class CanonTowerlvl4 : Tower
             new Vector3(AttackRange * 2, AttackRange * 2, AttackRange * 2);
         attackRangeShpere.transform.position = transform.position;
         //ScaleManager.Instance.ScaleFixForAR(attackRangeShpere);
+
+        hpSlider.maxValue = hp;
+        hpSlider.value = hp;
     }
 
     // Update is called once per frame

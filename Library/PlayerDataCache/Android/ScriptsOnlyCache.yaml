@@ -69,6 +69,7 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.GraphicRaycaster
     - UnityEngine.UI.Image
     - UnityEngine.UI.Outline
+    - UnityEngine.UI.Slider
     - UnityEngine.UI.Text
   sceneClasses:
     Assets/00.Scenes/GameScene_AR.unity:
@@ -103,59 +104,61 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11210}
+      Script: {instanceID: 11234}
     - Class: 114
-      Script: {instanceID: 11228}
+      Script: {instanceID: 11252}
     - Class: 114
-      Script: {instanceID: 11426}
+      Script: {instanceID: 11450}
     - Class: 114
-      Script: {instanceID: 11472}
+      Script: {instanceID: 11496}
     - Class: 114
-      Script: {instanceID: 11516}
+      Script: {instanceID: 11540}
     - Class: 114
-      Script: {instanceID: 11634}
+      Script: {instanceID: 11658}
     - Class: 114
-      Script: {instanceID: 12004}
+      Script: {instanceID: 12028}
     - Class: 114
-      Script: {instanceID: 12238}
+      Script: {instanceID: 12262}
     - Class: 114
-      Script: {instanceID: 12384}
+      Script: {instanceID: 12408}
     - Class: 114
-      Script: {instanceID: 12420}
+      Script: {instanceID: 12444}
     - Class: 114
-      Script: {instanceID: 12458}
+      Script: {instanceID: 12482}
     - Class: 114
-      Script: {instanceID: 12462}
+      Script: {instanceID: 12486}
     - Class: 114
-      Script: {instanceID: 12484}
+      Script: {instanceID: 12508}
     - Class: 114
-      Script: {instanceID: 12576}
+      Script: {instanceID: 12600}
     - Class: 114
-      Script: {instanceID: 12858}
+      Script: {instanceID: 12882}
     - Class: 114
-      Script: {instanceID: 13070}
+      Script: {instanceID: 13094}
     - Class: 114
-      Script: {instanceID: 13092}
+      Script: {instanceID: 13116}
     - Class: 114
-      Script: {instanceID: 13206}
+      Script: {instanceID: 13230}
     - Class: 114
-      Script: {instanceID: 13234}
+      Script: {instanceID: 13258}
     - Class: 114
-      Script: {instanceID: 13250}
+      Script: {instanceID: 13274}
     - Class: 114
-      Script: {instanceID: 13310}
+      Script: {instanceID: 13334}
     - Class: 114
-      Script: {instanceID: 13430}
+      Script: {instanceID: 13454}
     - Class: 114
-      Script: {instanceID: 13510}
+      Script: {instanceID: 13534}
     - Class: 114
-      Script: {instanceID: 13528}
+      Script: {instanceID: 13552}
     - Class: 114
-      Script: {instanceID: 13576}
+      Script: {instanceID: 13600}
     - Class: 114
-      Script: {instanceID: 13604}
+      Script: {instanceID: 13628}
     - Class: 114
-      Script: {instanceID: 13688}
+      Script: {instanceID: 13712}
+    - Class: 114
+      Script: {instanceID: 13746}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -226,65 +229,69 @@ ScriptsOnlyBuild:
     - Class: 111
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11194}
+      Script: {instanceID: 11218}
     - Class: 114
-      Script: {instanceID: 11210}
+      Script: {instanceID: 11234}
     - Class: 114
-      Script: {instanceID: 11328}
+      Script: {instanceID: 11352}
     - Class: 114
-      Script: {instanceID: 11426}
+      Script: {instanceID: 11450}
     - Class: 114
-      Script: {instanceID: 11472}
+      Script: {instanceID: 11496}
     - Class: 114
-      Script: {instanceID: 11500}
+      Script: {instanceID: 11524}
     - Class: 114
-      Script: {instanceID: 11546}
+      Script: {instanceID: 11570}
     - Class: 114
-      Script: {instanceID: 11550}
+      Script: {instanceID: 11574}
     - Class: 114
-      Script: {instanceID: 11588}
+      Script: {instanceID: 11612}
     - Class: 114
-      Script: {instanceID: 11682}
+      Script: {instanceID: 11706}
     - Class: 114
-      Script: {instanceID: 11758}
+      Script: {instanceID: 11782}
     - Class: 114
-      Script: {instanceID: 12004}
+      Script: {instanceID: 12028}
     - Class: 114
-      Script: {instanceID: 12024}
+      Script: {instanceID: 12048}
     - Class: 114
-      Script: {instanceID: 12166}
+      Script: {instanceID: 12190}
     - Class: 114
-      Script: {instanceID: 12408}
+      Script: {instanceID: 12432}
     - Class: 114
-      Script: {instanceID: 12576}
+      Script: {instanceID: 12444}
     - Class: 114
-      Script: {instanceID: 12626}
+      Script: {instanceID: 12600}
     - Class: 114
-      Script: {instanceID: 12670}
+      Script: {instanceID: 12650}
     - Class: 114
-      Script: {instanceID: 12812}
+      Script: {instanceID: 12694}
     - Class: 114
-      Script: {instanceID: 12982}
+      Script: {instanceID: 12836}
     - Class: 114
-      Script: {instanceID: 13092}
+      Script: {instanceID: 13006}
     - Class: 114
-      Script: {instanceID: 13206}
+      Script: {instanceID: 13116}
     - Class: 114
-      Script: {instanceID: 13250}
+      Script: {instanceID: 13230}
     - Class: 114
-      Script: {instanceID: 13296}
+      Script: {instanceID: 13274}
     - Class: 114
-      Script: {instanceID: 13418}
+      Script: {instanceID: 13320}
     - Class: 114
-      Script: {instanceID: 13520}
+      Script: {instanceID: 13442}
     - Class: 114
-      Script: {instanceID: 13604}
+      Script: {instanceID: 13544}
     - Class: 114
-      Script: {instanceID: 13632}
+      Script: {instanceID: 13628}
     - Class: 114
-      Script: {instanceID: 13688}
+      Script: {instanceID: 13656}
     - Class: 114
-      Script: {instanceID: 13724}
+      Script: {instanceID: 13712}
+    - Class: 114
+      Script: {instanceID: 13746}
+    - Class: 114
+      Script: {instanceID: 13748}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -852,7 +859,7 @@ ScriptsOnlyBuild:
     className: ARPointCloud
   - hash:
       serializedVersion: 2
-      Hash: a2176b26200f2ccd3dc3b1d190b71b50
+      Hash: 5310e2562d6c669c1162474277f37b27
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: GameManager
@@ -1376,4 +1383,4 @@ ScriptsOnlyBuild:
   scenePathNames:
   - Assets/00.Scenes/TitleScene.unity
   - Assets/00.Scenes/GameScene_AR.unity
-  playerPath: C:/Unity/ARDefenceRTSGame/CrystalRush0.0.3.apk
+  playerPath: C:/Unity/ARDefenceRTSGame/CrystalRush0.0.5.apk

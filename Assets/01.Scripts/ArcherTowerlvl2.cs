@@ -23,6 +23,7 @@ public class ArcherTowerlvl2 : Tower
     {
         // 속성 설정
         hp = 300;
+        maxHp = hp;
         buildCost = 100;
         sellGold = buildCost / 2;
         attackSpeed = 0.5f;
@@ -58,6 +59,9 @@ public class ArcherTowerlvl2 : Tower
             new Vector3(AttackRange * 2, AttackRange * 2, AttackRange * 2);
         attackRangeShpere.transform.position = transform.position;
         //ScaleManager.Instance.ScaleFixForAR(attackRangeShpere);
+
+        hpSlider.maxValue = hp;
+        hpSlider.value = hp;
     }
 
     // Update is called once per frame

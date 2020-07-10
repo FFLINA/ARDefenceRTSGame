@@ -144,7 +144,8 @@ public class Tower : Build
             {
                 bullet.GetComponent<Bullet>().SetTarget(targetEnemies[0].transform.Find("Model").gameObject);
             }
-
+            Vector3 dir = targetEnemies[0].transform.Find("Model").gameObject.transform.position - transform.position;
+            bullet.transform.rotation = Quaternion.LookRotation(dir);
             // 공격 사운드 이펙트
             SoundManager.Instance.PlayEffect(attackEffectClip, 0.15f);
 

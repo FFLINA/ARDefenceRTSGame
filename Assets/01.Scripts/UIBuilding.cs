@@ -25,6 +25,8 @@ public class UIBuilding : MonoBehaviour
         
         transform.localScale = transform.localScale.normalized * (dist / 3);
     }
+
+
     public void OnClickArcherTower()
     {
         // TODO: 중요도 하 - 건설 시간동안 딜레이 추가

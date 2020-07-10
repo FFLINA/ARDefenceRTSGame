@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using static SoundManager;
 
 public class Build : MonoBehaviour
@@ -19,6 +20,7 @@ public class Build : MonoBehaviour
     // 파괴 함수는 Tower, Barrack 에서 각자 구현 후 상속
 
     protected float hp;
+    protected float maxHp;
     public float HP
     {
         get
@@ -28,10 +30,23 @@ public class Build : MonoBehaviour
         set
         {
             hp = value;
+            hpSlider.value = hp;
             print("이 건물의 현재 체력 : " + hp);
+
+            //hpSlider.transform.Find("Fill").GetChild(0).GetComponent<Image>().color = Color.Lerp(Color.red, Color.green, hp / maxHp);
+            Image hpSlider_fill = hpSlider.transform.Find("Fill Area").GetChild(0).GetComponent<Image>();
+            hpSlider_fill.color = Color.Lerp(Color.red, Color.green, hp / maxHp);
+            //if (hp <= hp * 0.7f)
+            //{
+            //    // 70퍼보다 적으면 슬라이더의 색 변경
+            //}
+            //else if (hp <= hp * 0.35f)
+            //{
+            //    // 35퍼보다 적으면
+            //}
             if (hp <= 0)
             {
-                // 건물 파괴
+                // 0이하면 건물 파괴
                 BuildDestroy();
             }
         }
@@ -52,6 +67,68 @@ public class Build : MonoBehaviour
         }
     }
 
+
+    protected int buildCost, sellGold;
+    public int Cost { get { return buildCost; } set { buildCost = value; } }
+    public int SellGold { get { return sellGold; } set { sellGold = value; } }
+
+    protected GameObject nextUpgradeF;
+
+    // 건물이 건설된 필드의 정보를 가지고 있다
+    protected GameObject buildedField;
+
+    GameObject hpUIFactory;
+    protected Slider hpSlider;
+
+    // 사운드이펙트 클립 설정 변수
+    protected EffectClipsEnum buildEffectClip;
+    protected EffectClipsEnum attackEffectClip;
+    protected EffectClipsEnum sellEffectClip;
+    protected EffectClipsEnum destroyEffectClip;
+
+    // 생성, 판매 이펙트
+    GameObject spawnEffectF;
+    GameObject sellEffectF;
+    GameObject destroyEffectF;
+
+    public virtual void Awake()
+    {
+        spawnEffectF = Resources.Load<GameObject>("VFX_TowerSpawn");
+        sellEffectF = Resources.Load<GameObject>("VFX_TowerSell");
+        destroyEffectF = Resources.Load<GameObject>("VFX_TowerDestroy");
+        hpUIFactory = Resources.Load<GameObject>("UI_HP");
+    }
+
+    // Start is called before the first frame update
+    public virtual void Start()
+    {
+        //// 건물 생성시 크리스탈 반대방향을 바라보게 한다
+        //Vector3 dir = BuildManager.Instance.CrystalPosition - transform.position;
+        //dir.Normalize();  
+        //transform.forward = dir;
+
+        GameObject spawnE = Instantiate(spawnEffectF);
+        ScaleManager.Instance.ScaleFixForAR(spawnE);
+        spawnE.transform.position = transform.position;
+        Destroy(spawnE, 1.5f);
+
+        buildEffectClip = EffectClipsEnum.TowerBuild;
+        SoundManager.Instance.PlayEffect(buildEffectClip, 0.5f);
+
+        GameObject hpUI = Instantiate(hpUIFactory);
+        hpUI.transform.parent = transform;
+        Vector3 offset = new Vector3(0, 0.5f, 0);
+        hpUI.transform.position = transform.Find("Point").transform.position + offset;
+        hpSlider = hpUI.transform.GetComponentInChildren<Slider>();
+
+    }
+
+    // Update is called once per frame
+    public virtual void Update()
+    {
+
+    }
+
     int nextCost;
     internal int GetNextCost()
     {
@@ -64,21 +141,6 @@ public class Build : MonoBehaviour
         }
         return nextCost;
     }
-
-    protected int buildCost, sellGold;
-    public int Cost { get { return buildCost; } set { buildCost = value; } }
-    public int SellGold { get { return sellGold; } set { sellGold = value; } }
-
-    protected GameObject nextUpgradeF;
-
-    // 건물이 건설된 필드의 정보를 가지고 있다
-    protected GameObject buildedField;
-
-    // 사운드이펙트 클립 설정 변수
-    protected EffectClipsEnum buildEffectClip;
-    protected EffectClipsEnum attackEffectClip;
-    protected EffectClipsEnum sellEffectClip;
-    protected EffectClipsEnum destroyEffectClip;
 
     public virtual void Sell()
     {
@@ -127,39 +189,5 @@ public class Build : MonoBehaviour
         buildedField = clickedField;
     }
 
-    // 생성, 판매 이펙트
-    GameObject spawnEffectF;
-    GameObject sellEffectF;
-    GameObject destroyEffectF;
-
-    public virtual void Awake()
-    {
-        spawnEffectF = Resources.Load<GameObject>("VFX_TowerSpawn");
-        sellEffectF = Resources.Load<GameObject>("VFX_TowerSell");
-        destroyEffectF = Resources.Load<GameObject>("VFX_TowerDestroy");
-    }
-
-    // Start is called before the first frame update
-    public virtual void Start()
-    {
-        //// 건물 생성시 크리스탈 반대방향을 바라보게 한다
-        //Vector3 dir = BuildManager.Instance.CrystalPosition - transform.position;
-        //dir.Normalize();  
-        //transform.forward = dir;
-
-        GameObject spawnE = Instantiate(spawnEffectF);
-        ScaleManager.Instance.ScaleFixForAR(spawnE);
-        spawnE.transform.position = transform.position;
-        Destroy(spawnE, 1.5f);
-
-        buildEffectClip = EffectClipsEnum.TowerBuild;
-        SoundManager.Instance.PlayEffect(buildEffectClip, 0.5f);
-    }
-
-    // Update is called once per frame
-    public virtual void Update()
-    {
-
-    }
 
 }

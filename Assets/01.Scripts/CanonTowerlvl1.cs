@@ -22,6 +22,7 @@ public class CanonTowerlvl1 : Tower
     {
         // 속성 설정
         hp = 150f;
+        maxHp = hp;
         buildCost = 250;
         sellGold = 125;
         attackSpeed = 7f;
@@ -56,6 +57,9 @@ public class CanonTowerlvl1 : Tower
             new Vector3(AttackRange * 2, AttackRange * 2, AttackRange * 2);
         attackRangeShpere.transform.position = transform.position;
         //ScaleManager.Instance.ScaleFixForAR(attackRangeShpere);
+
+        hpSlider.maxValue = hp;
+        hpSlider.value = hp;
 
     }
 

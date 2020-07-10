@@ -21,6 +21,7 @@ public class CanonTowerlvl3 : Tower
     {
         // 속성 설정
         hp = 400f;
+        maxHp = hp;
         buildCost = 250;
         sellGold = 325;     // (250 + 150 + 250) / 2
         attackSpeed = 4f;
@@ -58,6 +59,8 @@ public class CanonTowerlvl3 : Tower
         attackRangeShpere.transform.position = transform.position;
         //ScaleManager.Instance.ScaleFixForAR(attackRangeShpere);
 
+        hpSlider.maxValue = hp;
+        hpSlider.value = hp;
     }
 
     // Update is called once per frame

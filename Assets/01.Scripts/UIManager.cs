@@ -24,6 +24,7 @@ public class UIManager : MonoBehaviour
     public GameObject upgradeUIFactory;
     GameObject buildUI, upgradeUI;
 
+
     public Image messageUI;
     public Text messageTextUI;
 
@@ -42,8 +43,8 @@ public class UIManager : MonoBehaviour
             if (Input.GetMouseButton(0))
             {
                 // UI가 클릭되었을 때 클릭이벤트 중복 발생 방지
-                if (!EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId)) //  터치
                     //if (!EventSystem.current.IsPointerOverGameObject())
+                if (!EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId)) //  터치
                 {
                     //클릭 처리
                     // 모바일 대응?
@@ -53,7 +54,7 @@ public class UIManager : MonoBehaviour
                     RaycastHit hit;
                     int layerMask = 1 << 10 | 1 << 11;
                     // 레이어 10 = AttackRange | 11 = Enemy
-                    if (Physics.Raycast(Camera.main.transform.position, dir, out hit, mos.z, ~layerMask))   // 레이어10 제외
+                    if (Physics.Raycast(Camera.main.transform.position, dir, out hit, mos.z, ~layerMask))   // 레이어10,11 제외
                     {
                         if (hit.transform.CompareTag("GameField"))
                         {
@@ -98,11 +99,11 @@ public class UIManager : MonoBehaviour
                 //buildUI.transform.position = hit.transform.position + offset;
                 buildUI.transform.position = hit.transform.position;
 
-
                 buildUI.GetComponent<UIBuilding>().SetClickedField(hit.transform.gameObject);
                 /* 해당 게임필드의 정보를 건물이 가지고 있다가
                 * 건물이 파괴,판매 되면 가지고있던 게임필드의 isBuildable을 true로
                 */
+
             }
         }
 

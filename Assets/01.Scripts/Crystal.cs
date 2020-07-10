@@ -24,6 +24,7 @@ public class Crystal : MonoBehaviour
         set 
         { 
             hp = value;
+            GameManager.Instance.crystalHP.value = hp;
             //print("크리스탈의 HP : " + HP);
             if(hp <= 0)
             {
@@ -53,7 +54,8 @@ public class Crystal : MonoBehaviour
     void Start()
     {
         HP = 1000f;
-
+        GameManager.Instance.crystalHP.maxValue = HP;
+        GameManager.Instance.crystalHP.value = HP;
         //beamEffect.transform.position = transform.Find("BeamPoint").transform.position;
         //beamEffect.transform.parent = gameObject.transform;
         Vector3 beamRotate = new Vector3(-90f, 0, 0);

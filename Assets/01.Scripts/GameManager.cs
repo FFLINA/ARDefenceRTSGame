@@ -31,6 +31,8 @@ public class GameManager : MonoBehaviour
     public Button gameStartButton;
     public GameObject gameOverUI;
 
+    public Slider crystalHP;
+
     GameObject gameFieldsFactory;
     GameObject gameFields;
 
@@ -57,6 +59,7 @@ public class GameManager : MonoBehaviour
 
         gameStartButton.gameObject.SetActive(false);
         gameOverUI.SetActive(false);
+        crystalHP.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -87,6 +90,8 @@ public class GameManager : MonoBehaviour
         //    }
         //}
     }
+
+
     public void CreateGameField(RaycastHit hit)
     {
         hasCrystal = true;
@@ -97,10 +102,10 @@ public class GameManager : MonoBehaviour
             // 게임필드를 만들고
             gameFields = Instantiate(gameFieldsFactory);
             ScaleManager.Instance.ScaleFixForAR(gameFields);
-            Vector3 fieldOffset = new Vector3(0, -2f, 0);
+            Vector3 fieldOffset = new Vector3(0, -1f, 0);
             gameFields.transform.position = hit.transform.position + fieldOffset;
             //gameFields.transform.position = hit.point;
-            Vector3 offset = new Vector3(0, -1.9f, 0);
+            Vector3 offset = new Vector3(0, -0.9f, 0);
             crystal = Instantiate(crystalFactory);
             ScaleManager.Instance.ScaleFixForAR(crystal);
             crystal.transform.position = hit.transform.position + offset;
@@ -109,6 +114,7 @@ public class GameManager : MonoBehaviour
             // 에너미매니저한테 게임필드 생성됐다고 알림
             EnemyManager.Instance.SetGameField(gameFields);
             EnemyManager.Instance.SetCrystal(crystal);
+            crystalHP.gameObject.SetActive(true);
         }
     }
 
@@ -119,6 +125,7 @@ public class GameManager : MonoBehaviour
 
         GameStart = true;
         gameStartButton.gameObject.SetActive(false);
+
         //gameStartButton.enabled = false;
         stage++;
         stageText.text = stageMent + stage.ToString("00");
@@ -144,6 +151,8 @@ public class GameManager : MonoBehaviour
         crystal = null;
         hasCrystal = false;
         GameStart = false;
+        crystalHP.gameObject.SetActive(false);
+
         gameOverUI.SetActive(true);
     }
 
